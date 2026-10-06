@@ -6,6 +6,7 @@
 사용법
   python bot.py            # 새 소식 확인 후 게시 (기본)
   python bot.py weekly     # 주간 정리 '이번 주 모험담' 게시
+  python bot.py intro      # 고정 소개글 게시 (처음 1회)
   python bot.py --dry-run  # 게시하지 않고 출력만
   python bot.py --dry-run --since 7   # 최근 7일치를 '새 소식'으로 간주해 미리보기
 
@@ -429,11 +430,29 @@ def run_weekly(dry):
     send(text, dry)
 
 
+INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
+
+장혜영이 어디서 무슨 말을 했는지, 올라오는 대로 모아 전해요.
+
+📡 <b>이런 곳에서 가져와요</b>
+망원정x 홈페이지 · 장혜영 유튜브 · 출연 방송(JTBC 장르만 여의도, CBS 박성태의 뉴스쇼, cpbc 김준일의 시사천국, BBS 아침저널) · '장혜영' 언론 보도
+
+🗓 매주 일요일엔 한 주를 묶은 <b>'이번 주 모험담'</b>을 올려요.
+
+거대한 전투보다 오늘 지킨 작은 일들을 기록합니다.
+"모두가 무사히 할머니, 할아버지가 될 수 있는 사회"를 향해.
+지는 것에 익숙해지지 맙시다.
+
+※ 지지자가 운영하는 비공식 채널입니다."""
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     dry = "--dry-run" in args
     since = int(args[args.index("--since") + 1]) if "--since" in args else None
-    if "weekly" in args:
+    if "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
+        send(INTRO, dry)
+    elif "weekly" in args:
         run_weekly(dry)
     else:
         run_update(dry, since)
