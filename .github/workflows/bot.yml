@@ -12,6 +12,9 @@ on:
       days:
         description: "backfill 때 며칠치를 올릴지"
         default: "7"
+      repost:
+        description: "backfill 때 이미 올린 것도 다시 올릴지 (yes/no)"
+        default: "no"
 
 permissions:
   contents: write             # state.json 저장용
@@ -38,7 +41,11 @@ jobs:
           if [ "${{ inputs.mode }}" = "intro" ]; then
             python bot.py intro
           elif [ "${{ inputs.mode }}" = "backfill" ]; then
-            python bot.py backfill --since "${{ inputs.days }}"
+            if [ "${{ inputs.repost }}" = "yes" ]; then
+              python bot.py backfill --since "${{ inputs.days }}" --repost
+            else
+              python bot.py backfill --since "${{ inputs.days }}"
+            fi
           elif [ "${{ github.event.schedule }}" = "0 11 * * 0" ] || [ "${{ inputs.mode }}" = "weekly" ]; then
             python bot.py weekly
           else
