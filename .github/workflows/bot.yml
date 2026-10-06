@@ -7,8 +7,11 @@ on:
   workflow_dispatch:          # Actions 탭에서 수동 실행
     inputs:
       mode:
-        description: "update / weekly / intro(소개글 1회 게시)"
+        description: "update / weekly / intro(소개글 1회) / backfill(최근 7일치 1회)"
         default: "update"
+      days:
+        description: "backfill 때 며칠치를 올릴지"
+        default: "7"
 
 permissions:
   contents: write             # state.json 저장용
@@ -34,6 +37,8 @@ jobs:
         run: |
           if [ "${{ inputs.mode }}" = "intro" ]; then
             python bot.py intro
+          elif [ "${{ inputs.mode }}" = "backfill" ]; then
+            python bot.py backfill --since "${{ inputs.days }}"
           elif [ "${{ github.event.schedule }}" = "0 11 * * 0" ] || [ "${{ inputs.mode }}" = "weekly" ]; then
             python bot.py weekly
           else
