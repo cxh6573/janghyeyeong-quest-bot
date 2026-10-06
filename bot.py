@@ -7,6 +7,7 @@
   python bot.py            # 새 소식 확인 후 게시 (기본)
   python bot.py weekly     # 주간 정리 '이번 주 모험담' 게시
   python bot.py intro      # 고정 소개글 게시 (처음 1회)
+  python bot.py backfill   # 최근 7일치를 다시 게시 (이미 올린 것 포함, 1회용)
   python bot.py --dry-run  # 게시하지 않고 출력만
   python bot.py --dry-run --since 7   # 최근 7일치를 '새 소식'으로 간주해 미리보기
 
@@ -355,18 +356,23 @@ def save_state(st):
 
 
 # ── 실행 ────────────────────────────────────────────────
-def run_update(dry, since_days=None):
+def run_update(dry, since_days=None, backfill=False):
+    """backfill=True: 최근 since_days일치를 '본 것' 여부와 무관하게 다시 게시하고 상태에 합친다."""
     st = load_state()
     items = collect()
     first_run = st is None
     if first_run:
         st = {"seen": [], "nkeys": [], "log": []}
     seen, nkeys = set(st["seen"]), set(st["nkeys"])
+    orig_seen, orig_nkeys = set(seen), set(nkeys)
 
-    if since_days is not None:  # 미리보기: 최근 N일치를 새 소식으로 간주
+    if since_days is not None:  # 최근 N일치를 새 소식으로 간주 (미리보기·되올리기)
         cutoff = datetime.now(KST) - timedelta(days=since_days)
         seen, nkeys, first_run = set(), set(), False
-        items = [i for i in items if not i["date"] or i["date"] >= cutoff]
+        if backfill:  # 날짜를 모르는 항목은 오래된 것일 수 있으므로 제외
+            items = [i for i in items if i["date"] and i["date"] >= cutoff]
+        else:
+            items = [i for i in items if not i["date"] or i["date"] >= cutoff]
 
     if first_run:  # 첫 실행: 과거 소식을 한꺼번에 쏟아내지 않도록 '본 것'으로만 기록
         st["seen"] = sorted({i["key"] for i in items} | {i["alt"] for i in items if i.get("alt")})
@@ -394,7 +400,8 @@ def run_update(dry, since_days=None):
             nkeys.add(it["nkey"])
 
     posted = 0
-    for it in new[:MAX_POSTS_PER_RUN]:
+    cap = 30 if backfill else MAX_POSTS_PER_RUN
+    for it in new[:cap]:
         if send(render(it), dry):
             seen.add(it["key"])
             if it.get("alt"):
@@ -404,8 +411,11 @@ def run_update(dry, since_days=None):
             posted += 1
             time.sleep(0 if dry else 3)
     print(f"새 항목 {len(new)}건 중 {posted}건 게시" + (" (dry-run)" if dry else ""))
+    if backfill:  # 기존 기록에 합침 (지우지 않음). 이번에 본 항목은 모두 '본 것'으로.
+        seen |= orig_seen | {i["key"] for i in items} | {i["alt"] for i in items if i.get("alt")}
+        nkeys |= orig_nkeys
     st["seen"], st["nkeys"] = sorted(seen), sorted(nkeys)
-    if not dry and since_days is None:
+    if not dry and (since_days is None or backfill):
         save_state(st)
 
 
@@ -457,7 +467,9 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     dry = "--dry-run" in args
     since = int(args[args.index("--since") + 1]) if "--since" in args else None
-    if "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
+    if "backfill" in args:  # 최근 7일치 되올리기 (Actions 수동 실행 mode=backfill)
+        run_update(dry, since if since is not None else 7, backfill=True)
+    elif "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
         send(INTRO, dry)
     elif "weekly" in args:
         run_weekly(dry)
