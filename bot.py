@@ -54,6 +54,8 @@ COLUMN_QUERIES = [
 ]
 # 선택: YouTube Data API 키. 있으면 가장 안정적 (RSS는 간헐적으로 404).
 YT_API_KEY = os.environ.get("YT_API_KEY", "").strip()
+YT_MAX_PAGES = 2                      # 되올리기 때 늘어남
+YT_UNTIL = datetime.now(timezone(timedelta(hours=9))) - timedelta(days=2)
 # 홈페이지 RSS 제목 앞머리 → 방송 id (홈페이지에 나중에 올라오는 같은 방송을 거르기 위함)
 HOMEPAGE_SHOW_PREFIX = {
     "[JTBC] 장르만 여의도": "jtbc",
@@ -154,17 +156,28 @@ def _parse_xml(raw):
 def yt_items(cid):
     """유튜브 채널 최신 영상. API 키 → RSS → 채널 페이지 순으로 시도."""
     if YT_API_KEY:
-        url = ("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25"
-               f"&playlistId=UU{cid[2:]}&key={YT_API_KEY}")
-        raw = fetch(url)
-        if raw:
-            out = []
-            for x in json.loads(raw).get("items", []):
+        # 한국일보·SBS 라디오처럼 하루 수십 개를 올리는 채널이 있어 여러 쪽(50개씩)을 읽는다.
+        # 평소엔 최근 2쪽(100개), 되올리기 땐 기간 시작일에 닿을 때까지 최대 YT_MAX_PAGES쪽.
+        out, token, ok = [], "", False
+        for _ in range(YT_MAX_PAGES):
+            url = ("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50"
+                   f"&playlistId=UU{cid[2:]}&key={YT_API_KEY}" + (f"&pageToken={token}" if token else ""))
+            raw = fetch(url)
+            if not raw:
+                break
+            ok = True
+            data = json.loads(raw)
+            for x in data.get("items", []):
                 sn = x["snippet"]
                 vid = sn.get("resourceId", {}).get("videoId", "")
                 out.append({"title": sn.get("title", ""), "text": sn.get("description", ""),
                             "link": f"https://www.youtube.com/watch?v={vid}",
                             "date": parse_date(sn.get("publishedAt")), "source": ""})
+            token = data.get("nextPageToken", "")
+            oldest = min((o["date"] for o in out if o["date"]), default=None)
+            if not token or (oldest and oldest < YT_UNTIL):
+                break
+        if ok:
             return out
     raw = fetch("https://www.youtube.com/feeds/videos.xml?channel_id=" + cid, tries=4)
     if raw:
@@ -235,7 +248,9 @@ def collect():
 
     # 1) 방송: '장혜영'이 제목/설명에 있는 항목. 같은 방송·같은 날은 하나만.
     for sid, label, url in SHOWS:
-        hits = [e for e in parse_feed(url) if NAME in e["title"] or NAME in e["text"]]
+        feed = parse_feed(url)
+        hits = [e for e in feed if NAME in e["title"] or NAME in e["text"]]
+        print(f"[소스] {label}: {len(feed)}개 중 '{NAME}' {len(hits)}건", file=sys.stderr)
         by_day = {}
         for e in hits:
             k = day(e["date"]) or e["link"]  # 날짜를 모르면(채널 페이지 대체) 영상별로
@@ -299,6 +314,9 @@ def collect():
         items.append({"key": f"news:{norm(t)}", "kind": "news", "label": src or "언론 보도",
                       "title": title, "link": e["link"], "date": e["date"], "nkey": norm(t)})
 
+    cnt_news = sum(1 for i in items if i["kind"] == "news" and i["key"].startswith("news:"))
+    print(f"[소스] 뉴스 검색 {cnt_news}건", file=sys.stderr)
+
     # 5) 정기 기고 칼럼
     for label, q, must_src in COLUMN_QUERIES:
         url = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q)
@@ -311,6 +329,7 @@ def collect():
             title = t.rsplit(" - ", 1)[0] if " - " in t else t
             items.append({"key": f"news:{norm(t)}", "kind": "column", "label": label,
                           "title": title, "link": e["link"], "date": e["date"], "nkey": norm(t)})
+    print(f"[소스] 칼럼 {sum(1 for i in items if i['kind'] == 'column')}건", file=sys.stderr)
     return items
 
 
@@ -500,6 +519,8 @@ if __name__ == "__main__":
     dry = "--dry-run" in args
     since = int(args[args.index("--since") + 1]) if "--since" in args else None
     if "backfill" in args:  # 최근 7일치 되올리기 (Actions 수동 실행 mode=backfill)
+        YT_MAX_PAGES = 8
+        YT_UNTIL = datetime.now(KST) - timedelta(days=(since if since is not None else 7))
         run_update(dry, since if since is not None else 7, backfill=True,
                    repost="--repost" in args)
     elif "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
