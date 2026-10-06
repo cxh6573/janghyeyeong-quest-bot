@@ -1,0 +1,45 @@
+name: 하찮은 모험담 봇
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # 15분마다 새 소식 확인
+    - cron: "0 11 * * 0"     # 매주 일요일 20:00 KST 주간 정리
+  workflow_dispatch:          # Actions 탭에서 수동 실행
+    inputs:
+      mode:
+        description: "update 또는 weekly"
+        default: "update"
+
+permissions:
+  contents: write             # state.json 저장용
+
+concurrency:
+  group: bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 실행
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT: "@janghyeyeong_quest"
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 11 * * 0" ] || [ "${{ inputs.mode }}" = "weekly" ]; then
+            python bot.py weekly
+          else
+            python bot.py
+          fi
+      - name: 상태 저장
+        run: |
+          git config user.name "jhy-quest-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add state.json
+          git diff --cached --quiet || (git commit -m "상태 갱신" && git push)
