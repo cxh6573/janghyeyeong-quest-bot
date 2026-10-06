@@ -49,6 +49,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260916-1789602465209.mp3?vod_id=C0000010545&podcast_id=P0000004845",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
+  "link:yt:2Rmh8ZE6IOE",
   "link:yt:zYW6D0z2yXE",
   "show:bbs:2026-09-17",
   "show:cbs:2026-09-01",
@@ -71,20 +72,29 @@
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "video:yt:8UmGErgjiTM",
+  "video:yt:9X5yNumMJPs",
   "video:yt:Akds_FfNf58",
   "video:yt:DgHKC86gyu4",
   "video:yt:E5KpwPXm6l8",
   "video:yt:EvLTfSOd8po",
+  "video:yt:HGb86TtdClA",
+  "video:yt:HxQTszQ2jZQ",
+  "video:yt:K4TMH7jljyY",
+  "video:yt:OeHJp5a0ic0",
   "video:yt:RxO4If441a0",
   "video:yt:U9Kw3LovkjQ",
   "video:yt:V8uKcRo6J8Y",
+  "video:yt:VSjTd_2pwaQ",
   "video:yt:WeIov7fcchc",
   "video:yt:YmzxYv3yns0",
   "video:yt:ZfPgZKywYtA",
+  "video:yt:_TURAOSM69c",
   "video:yt:go9T8OW0wvU",
   "video:yt:oPFBeo-coVk",
+  "video:yt:tSwsolEmHoM",
   "video:yt:u6oUcOfyyvI",
-  "video:yt:u_UK4SvGACc"
+  "video:yt:u_UK4SvGACc",
+  "video:yt:z98Vwhl_gn4"
  ],
  "nkeys": [
   "bbs뉴스아침저널장혜영미프진처방WHO",
@@ -121,5 +131,76 @@
   "출마자들은왜페미니스트정치학교를찾았나",
   "코이카지원받던몽골여성국회의원비율한국앞"
  ],
- "log": []
+ "log": [
+  {
+   "at": "2026-10-06T10:34:16.713313+09:00",
+   "kind": "show",
+   "label": "BBS 아침저널",
+   "title": "\"대통령 한마디에 말 바꾸고, 로비하면 통과 시켜주고...참 기막혀\"[장혜영]",
+   "link": "https://www.youtube.com/watch?v=2Rmh8ZE6IOE"
+  },
+  {
+   "at": "2026-10-06T10:34:20.461049+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "몇 번을 엎으며 이 책을 썼습니다 [한국어CC] 스몰토크",
+   "link": "https://www.youtube.com/watch?v=HGb86TtdClA"
+  },
+  {
+   "at": "2026-10-06T10:34:24.211530+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "성평등 가족부 장관 후보자 용혜인, 장혜영의 시선은? 진짜 문제는 '위성정당' | [한국어 CC] 빅토크",
+   "link": "https://www.youtube.com/watch?v=9X5yNumMJPs"
+  },
+  {
+   "at": "2026-10-06T10:34:27.955814+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "끊을 수 없었던 후원처 스물두 곳을 소개합니다 [한국어CC] | 스몰토크",
+   "link": "https://www.youtube.com/watch?v=K4TMH7jljyY"
+  },
+  {
+   "at": "2026-10-06T10:34:31.702694+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "제주 실종 사건 처리 과정을 다시 짚어보면 나오는 것  [한국어CC] | 빅토크",
+   "link": "https://www.youtube.com/watch?v=tSwsolEmHoM"
+  },
+  {
+   "at": "2026-10-06T10:34:35.475571+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "전세계 페미니스트 정치인들의 공통적인 고민은 [한국어CC] | 스몰토크",
+   "link": "https://www.youtube.com/watch?v=OeHJp5a0ic0"
+  },
+  {
+   "at": "2026-10-06T10:34:39.272404+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "‘붕어 아이큐’까지 나온 민주당 전당대회",
+   "link": "https://www.youtube.com/watch?v=z98Vwhl_gn4"
+  },
+  {
+   "at": "2026-10-06T10:34:43.005828+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "국회 지하 목욕탕에서 정치인들은 무슨 얘기를 할까 [한국어CC] | 스몰토크",
+   "link": "https://www.youtube.com/watch?v=_TURAOSM69c"
+  },
+  {
+   "at": "2026-10-06T10:34:46.841210+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "버스 하우스? 하필 지금 이야기 나온 배경 [한국어 CC] | 빅토크",
+   "link": "https://www.youtube.com/watch?v=VSjTd_2pwaQ"
+  },
+  {
+   "at": "2026-10-06T10:34:50.620022+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "으리으리한 대형 쇼핑몰에 어쩌다 시민단체가? [한국어 CC] | 스몰토크",
+   "link": "https://www.youtube.com/watch?v=HxQTszQ2jZQ"
+  }
+ ]
 }
