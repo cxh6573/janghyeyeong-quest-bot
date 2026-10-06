@@ -193,7 +193,9 @@ def yt_items(cid):
             seen_ids.add(vid)
             out.append({"title": t, "text": "", "link": f"https://www.youtube.com/watch?v={vid}",
                         "date": None, "source": ""})
-    print(f"[info] {cid}: RSS 실패, 채널 페이지로 대체 ({len(out)}건)", file=sys.stderr)
+    # 채널 페이지는 날짜가 없어 오래된 영상을 걸러낼 수 없다. 최신 5개만 본다.
+    out = out[:5]
+    print(f"[info] {cid}: API·RSS 실패, 채널 페이지로 대체 (최신 {len(out)}건)", file=sys.stderr)
     return out
 
 
@@ -256,6 +258,9 @@ def collect():
                           "date": bdt, "show": show})
         elif "빅토크]" in t:  # 장혜영 유튜브 피드가 이미 다룸
             continue
+        elif t.startswith(("[장혜영의 편지]", "[망원정담")):  # 자체 글
+            items.append({"key": f"home:{e['link']}", "kind": "home", "label": "망원정x",
+                          "title": t, "link": e["link"], "date": e["date"]})
         elif t.startswith("[") or t.startswith("bbs뉴스]"):  # 언론 보도 스크랩
             m = re.match(r"^\[?\s*([^\]]+)\]", t)
             dm = re.search(r"\((\d{4})\.(\d{1,2})\.(\d{1,2})\)\s*$", t)
@@ -439,7 +444,9 @@ INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
 
 🗓 매주 일요일엔 한 주를 묶은 <b>'이번 주 모험담'</b>을 올려요.
 
-거대한 전투보다 오늘 지킨 작은 일들을 기록합니다.
+거대한 전투 대신 아침 라디오 한 꼭지, 칼럼 한 편, 동네 모임 한 번.
+그런 일들이 쌓여 세상은 분명히 변하고 있다고 믿으며, 빠짐없이 기록합니다.
+
 "모두가 무사히 할머니, 할아버지가 될 수 있는 사회"를 향해.
 지는 것에 익숙해지지 맙시다.
 
