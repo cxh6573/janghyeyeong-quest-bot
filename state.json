@@ -50,7 +50,9 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:yt:2Rmh8ZE6IOE",
+  "link:yt:Be6fXx7DBYs",
   "link:yt:zYW6D0z2yXE",
+  "link:yt:zlYwat7-4eM",
   "show:bbs:2026-09-17",
   "show:cbs:2026-09-01",
   "show:cbs:2026-09-19",
@@ -72,6 +74,7 @@
   "show:cpbc:2026-09-30",
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
+  "show:sbs:2026-10-01",
   "video:yt:8UmGErgjiTM",
   "video:yt:9X5yNumMJPs",
   "video:yt:Akds_FfNf58",
@@ -342,6 +345,27 @@
    "label": "CBS 주말뉴스쇼",
    "title": "공소청 출범, 형사사법체계에 일대 혼란 불가피 (이동학, 김종혁, 장혜영)",
    "link": "https://www.youtube.com/watch?v=zYW6D0z2yXE"
+  },
+  {
+   "at": "2026-10-06T21:41:30.943649+09:00",
+   "kind": "show",
+   "label": "cpbc 김준일의 시사천국",
+   "title": "9/23(수) [김수민·장혜영·문성호] 조희대, 대법관 재제청 거부…'헌법 해석' 놓고 충돌",
+   "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853"
+  },
+  {
+   "at": "2026-10-06T21:41:34.538286+09:00",
+   "kind": "show",
+   "label": "JTBC 장르만 여의도",
+   "title": "DMZ 조사서 북한 수지반보병지뢰 1발 발견",
+   "link": "https://www.youtube.com/watch?v=Be6fXx7DBYs"
+  },
+  {
+   "at": "2026-10-06T21:41:38.108560+09:00",
+   "kind": "show",
+   "label": "SBS 최선호의 뉴스직격",
+   "title": "[뉴스직격] 친윤? 친명? '검사' 잘 골라내는 법 임명이냐, 철회냐.. 李 고민 끝났다?/조응천 김근식 금태섭 장혜영",
+   "link": "https://www.youtube.com/watch?v=zlYwat7-4eM"
   }
  ]
 }
