@@ -38,10 +38,19 @@ UA = "Mozilla/5.0 (compatible; janghyeyeong-quest-bot/1.0)"
 YT = "yt:"  # 유튜브 채널 표시 (yt_items 로 가져옴)
 SHOWS = [
     # id, 표시 이름, 소스 (yt:채널ID 또는 RSS URL)
+    # 고정 출연 (2026.10 기준)
+    ("cpbc", "cpbc 김준일의 시사천국", "https://podcast.cpbc.co.kr/open/feed.xml"),  # 수 18시
+    ("hk", "한국일보 이슈전파사", YT + "UC1aS5CRRDrN6CmR2VcpmetA"),                  # 목 15시
+    ("sbs", "SBS 최선호의 뉴스직격", YT + "UCLv3v82YNNsa8EsxrcPMjGQ"),               # 목 17시
+    ("cbs", "CBS 주말뉴스쇼", YT + "UC4Aa3OPkMenwTANpf0oWVRQ"),                      # 토 8시
+    # 비정기·임시 출연 (이름이 나올 때만 게시되므로 남겨 둠)
     ("jtbc", "JTBC 장르만 여의도", YT + "UCsqWTNmoaNPvsfeCgaD7BpQ"),
-    ("cbs", "CBS 박성태의 뉴스쇼", YT + "UC4Aa3OPkMenwTANpf0oWVRQ"),
     ("bbs", "BBS 아침저널", YT + "UCq1jDKl5IRN_n7xhc2xFNJA"),
-    ("cpbc", "cpbc 김준일의 시사천국", "https://podcast.cpbc.co.kr/open/feed.xml"),
+]
+# 정기 기고: 제목에 이름이 없으므로 전용 검색어로 찾고, 이름 필터 없이 받는다.
+COLUMN_QUERIES = [
+    ("한겨레 토요판 · 장혜영의 읽고사니즘", "장혜영 읽고사니즘 when:14d", "한겨레"),
+    ("일다 정치칼럼", '"장혜영" site:ildaro.com when:14d', "일다"),
 ]
 # 선택: YouTube Data API 키. 있으면 가장 안정적 (RSS는 간헐적으로 404).
 YT_API_KEY = os.environ.get("YT_API_KEY", "").strip()
@@ -289,12 +298,26 @@ def collect():
         title = t.rsplit(" - ", 1)[0] if " - " in t else t
         items.append({"key": f"news:{norm(t)}", "kind": "news", "label": src or "언론 보도",
                       "title": title, "link": e["link"], "date": e["date"], "nkey": norm(t)})
+
+    # 5) 정기 기고 칼럼
+    for label, q, must_src in COLUMN_QUERIES:
+        url = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q)
+               + "&hl=ko&gl=KR&ceid=KR:ko")
+        for e in parse_feed(url):
+            t = html.unescape(e["title"])
+            src = e["source"] or (t.rsplit(" - ", 1)[1] if " - " in t else "")
+            if must_src not in src:
+                continue
+            title = t.rsplit(" - ", 1)[0] if " - " in t else t
+            items.append({"key": f"news:{norm(t)}", "kind": "column", "label": label,
+                          "title": title, "link": e["link"], "date": e["date"], "nkey": norm(t)})
     return items
 
 
 # ── 메시지 ──────────────────────────────────────────────
-ICON = {"show": "📺", "news": "📰", "video": "▶️", "home": "✉️"}
-LINK_TEXT = {"show": "다시 보기", "news": "기사 보기", "video": "영상 보기", "home": "자세히 보기"}
+ICON = {"show": "📺", "news": "📰", "video": "▶️", "home": "✉️", "column": "✍️"}
+LINK_TEXT = {"show": "다시 보기", "news": "기사 보기", "video": "영상 보기", "home": "자세히 보기",
+             "column": "칼럼 읽기"}
 WEEKDAY = "월화수목금토일"
 
 
@@ -436,7 +459,8 @@ def run_weekly(dry):
         print("이번 주 게시물 없음: 주간 정리 생략")
         return
     e = html.escape
-    order = [("show", "방송"), ("news", "기사"), ("video", "영상"), ("home", "망원정x")]
+    order = [("show", "방송"), ("column", "칼럼"), ("news", "기사"), ("video", "영상"),
+             ("home", "망원정x")]
     lines = [f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})", ""]
     for kind, name in order:
         xs = [x for x in week if x["kind"] == kind]
@@ -458,7 +482,7 @@ INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
 장혜영이 어디서 무슨 말을 했는지, 올라오는 대로 모아 전해요.
 
 📡 <b>이런 곳에서 가져와요</b>
-망원정x 홈페이지 · 장혜영 유튜브 · 출연 방송(JTBC 장르만 여의도, CBS 박성태의 뉴스쇼, cpbc 김준일의 시사천국, BBS 아침저널) · '장혜영' 언론 보도
+망원정x 홈페이지 · 장혜영 유튜브(빅토크) · 출연 방송(cpbc 김준일의 시사천국, 한국일보 이슈전파사, SBS 최선호의 뉴스직격, CBS 주말뉴스쇼) · 칼럼(한겨레 토요판, 일다) · '장혜영' 언론 보도
 
 🗓 매주 일요일엔 한 주를 묶은 <b>'이번 주 모험담'</b>을 올려요.
 
