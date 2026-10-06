@@ -7,7 +7,7 @@ on:
   workflow_dispatch:          # Actions 탭에서 수동 실행
     inputs:
       mode:
-        description: "update 또는 weekly"
+        description: "update / weekly / intro(소개글 1회 게시)"
         default: "update"
 
 permissions:
@@ -32,7 +32,9 @@ jobs:
           TELEGRAM_CHAT: "@janghyeyeong_quest"
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: |
-          if [ "${{ github.event.schedule }}" = "0 11 * * 0" ] || [ "${{ inputs.mode }}" = "weekly" ]; then
+          if [ "${{ inputs.mode }}" = "intro" ]; then
+            python bot.py intro
+          elif [ "${{ github.event.schedule }}" = "0 11 * * 0" ] || [ "${{ inputs.mode }}" = "weekly" ]; then
             python bot.py weekly
           else
             python bot.py
