@@ -32,7 +32,7 @@ KST = timezone(timedelta(hours=9))
 NAME = "장혜영"
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "state.json")
 MAX_POSTS_PER_RUN = 10
-UA = "Mozilla/5.0 (compatible; janghyeyeong-quest-bot/1.0)"
+UA = "Mozilla/5.0"  # 일부 사이트(일다)가 봇 표시 UA에 빈 응답을 줌
 
 # ── 소스 ────────────────────────────────────────────────
 YT = "yt:"  # 유튜브 채널 표시 (yt_items 로 가져옴)
@@ -47,11 +47,11 @@ SHOWS = [
     ("jtbc", "JTBC 장르만 여의도", YT + "UCsqWTNmoaNPvsfeCgaD7BpQ"),
     ("bbs", "BBS 아침저널", YT + "UCq1jDKl5IRN_n7xhc2xFNJA"),
 ]
-# 정기 기고: 제목에 이름이 없으므로 전용 검색어로 찾고, 이름 필터 없이 받는다.
-COLUMN_QUERIES = [
-    ("한겨레 토요판 · 장혜영의 읽고사니즘", "장혜영 읽고사니즘 when:14d", "한겨레"),
-    ("일다 정치칼럼", '"장혜영" site:ildaro.com when:14d', "일다"),
-]
+# 정기 기고: 제목에 이름이 없어 매체 사이트에서 직접 읽는다.
+# (Google 뉴스 검색은 GitHub 서버에서 결과가 비어 나오는 경우가 있어 쓰지 않음)
+HANI_SERIES = "https://www.hani.co.kr/arti/SERIES/3236/home01.html"   # 장혜영의 읽고사니즘
+ILDARO_SEARCH = ("https://www.ildaro.com/search.html?submit=submit&search_and=1&search_exec=all"
+                 "&search_section=all&news_order=1&search=" + urllib.parse.quote("장혜영"))
 # 선택: YouTube Data API 키. 있으면 가장 안정적 (RSS는 간헐적으로 404).
 YT_API_KEY = os.environ.get("YT_API_KEY", "").strip()
 YT_MAX_PAGES = 2                      # 되올리기 때 늘어남
@@ -223,6 +223,68 @@ def yt_items(cid):
     return out
 
 
+def hani_column():
+    """한겨레 '장혜영의 읽고사니즘' 연재 페이지 (페이지에 심긴 JSON에서 제목·날짜를 읽음)."""
+    raw = fetch(HANI_SERIES)
+    if not raw:
+        return []
+    m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
+                  raw.decode("utf-8", "ignore"), re.S)
+    if not m:
+        print("[warn] 한겨레 연재 페이지 구조가 바뀜", file=sys.stderr)
+        return []
+    found = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            if "title" in o and "createDate" in o and "url" in o:
+                found.append(o)
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+    walk(json.loads(m.group(1)))
+    out, seen_ids = [], set()
+    for o in found:
+        if o["url"] in seen_ids:
+            continue
+        seen_ids.add(o["url"])
+        try:
+            d = datetime.strptime(o["createDate"][:16], "%Y-%m-%d %H:%M").replace(tzinfo=KST)
+        except Exception:
+            continue  # 날짜를 모르면 오래된 글일 수 있으므로 건너뜀
+        t = html.unescape(o["title"])
+        out.append({"key": f"news:{norm(t)}", "kind": "column",
+                    "label": "한겨레 토요판 · 장혜영의 읽고사니즘", "title": t,
+                    "link": "https://www.hani.co.kr" + o["url"], "date": d, "nkey": norm(t)})
+    print(f"[소스] 한겨레 읽고사니즘: {len(out)}건", file=sys.stderr)
+    return out
+
+
+def ildaro_items():
+    """일다 사이트 검색 '장혜영'. 필자가 장혜영이면 칼럼, 아니면 기사."""
+    raw = fetch(ILDARO_SEARCH)
+    if not raw:
+        return []
+    s = raw.decode("utf-8", "ignore")
+    out = []
+    for b in s.split("search_result_list_box")[1:]:
+        a = re.search(r"href='/(\d+)'>([^<]+)</a></dt>", b)
+        n = re.search(r"class='name'>([^<]*)<", b)
+        d = re.search(r"(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})", b)
+        if not (a and d):
+            continue
+        t = html.unescape(a.group(2)).strip().lstrip("\ufeff")
+        when = datetime(*map(int, d.groups()), tzinfo=KST)
+        is_col = n and NAME in n.group(1)
+        out.append({"key": f"news:{norm(t)}", "kind": "column" if is_col else "news",
+                    "label": "일다 정치칼럼" if is_col else "일다", "title": t,
+                    "link": f"https://www.ildaro.com/{a.group(1)}", "date": when, "nkey": norm(t)})
+    print(f"[소스] 일다: {len(out)}건", file=sys.stderr)
+    return out
+
+
 def norm(s):
     """제목 비교용 정규화: [매체] 머리·(날짜) 꼬리·' - 매체' 꼬리 제거 후 한글/영숫자만."""
     s = html.unescape(s)
@@ -282,7 +344,7 @@ def collect():
             items.append({"key": f"show:{show}:{bday}", "kind": "show", "label": label,
                           "title": f"{fmt_date(bdt)} 방송 출연", "link": e["link"],
                           "date": bdt, "show": show})
-        elif "빅토크]" in t:  # 장혜영 유튜브 피드가 이미 다룸
+        elif "빅토크]" in t or "읽고사니즘" in t:  # 유튜브·한겨레 연재 소스가 이미 다룸
             continue
         elif t.startswith(("[장혜영의 편지]", "[망원정담")):  # 자체 글
             items.append({"key": f"home:{e['link']}", "kind": "home", "label": "망원정x",
@@ -317,19 +379,9 @@ def collect():
     cnt_news = sum(1 for i in items if i["kind"] == "news" and i["key"].startswith("news:"))
     print(f"[소스] 뉴스 검색 {cnt_news}건", file=sys.stderr)
 
-    # 5) 정기 기고 칼럼
-    for label, q, must_src in COLUMN_QUERIES:
-        url = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q)
-               + "&hl=ko&gl=KR&ceid=KR:ko")
-        for e in parse_feed(url):
-            t = html.unescape(e["title"])
-            src = e["source"] or (t.rsplit(" - ", 1)[1] if " - " in t else "")
-            if must_src not in src:
-                continue
-            title = t.rsplit(" - ", 1)[0] if " - " in t else t
-            items.append({"key": f"news:{norm(t)}", "kind": "column", "label": label,
-                          "title": title, "link": e["link"], "date": e["date"], "nkey": norm(t)})
-    print(f"[소스] 칼럼 {sum(1 for i in items if i['kind'] == 'column')}건", file=sys.stderr)
+    # 5) 정기 기고 칼럼 + 일다 기사
+    items.extend(hani_column())
+    items.extend(ildaro_items())
     return items
 
 
