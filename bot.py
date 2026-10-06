@@ -7,7 +7,8 @@
   python bot.py            # 새 소식 확인 후 게시 (기본)
   python bot.py weekly     # 주간 정리 '이번 주 모험담' 게시
   python bot.py intro      # 고정 소개글 게시 (처음 1회)
-  python bot.py backfill   # 최근 7일치를 다시 게시 (이미 올린 것 포함, 1회용)
+  python bot.py backfill   # 최근 7일치 중 아직 채널에 없는 것 게시 (1회용)
+  python bot.py backfill --repost   # 게시 기록과 무관하게 최근 N일치 전부 다시 게시
   python bot.py --dry-run  # 게시하지 않고 출력만
   python bot.py --dry-run --since 7   # 최근 7일치를 '새 소식'으로 간주해 미리보기
 
@@ -356,7 +357,7 @@ def save_state(st):
 
 
 # ── 실행 ────────────────────────────────────────────────
-def run_update(dry, since_days=None, backfill=False):
+def run_update(dry, since_days=None, backfill=False, repost=False):
     """backfill=True: 최근 since_days일치를 '본 것' 여부와 무관하게 다시 게시하고 상태에 합친다."""
     st = load_state()
     items = collect()
@@ -384,8 +385,15 @@ def run_update(dry, since_days=None, backfill=False):
 
     # 오래된 항목은 게시하지 않음 (피드가 복구되며 옛 영상이 뒤늦게 잡히는 경우 대비).
     # 홈페이지는 방송을 최대 1주 늦게 올리므로 여유를 10일로 둔다.
-    too_old = datetime.now(KST) - timedelta(days=10)
+    # 되올리기(backfill)는 지정한 기간을 그대로 쓴다.
+    too_old = datetime.now(KST) - timedelta(days=since_days if backfill else 10)
     items = [i for i in items if not i["date"] or i["date"] >= too_old]
+    if backfill and not repost:  # 이미 채널에 올라간 항목(게시 기록)은 다시 올리지 않음
+        logged = {x["link"] for x in st["log"]}
+        items = [i for i in items if i["link"] not in logged]
+    if backfill and repost and not dry:  # 다시 올릴 항목의 옛 게시 기록은 지움 (주간 정리 중복 방지)
+        relinks = {i["link"] for i in items}
+        st["log"] = [x for x in st["log"] if x["link"] not in relinks]
 
     new, batch_keys = [], set()
     for it in sorted(items, key=lambda x: x["date"] or datetime.min.replace(tzinfo=KST)):
@@ -468,7 +476,8 @@ if __name__ == "__main__":
     dry = "--dry-run" in args
     since = int(args[args.index("--since") + 1]) if "--since" in args else None
     if "backfill" in args:  # 최근 7일치 되올리기 (Actions 수동 실행 mode=backfill)
-        run_update(dry, since if since is not None else 7, backfill=True)
+        run_update(dry, since if since is not None else 7, backfill=True,
+                   repost="--repost" in args)
     elif "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
         send(INTRO, dry)
     elif "weekly" in args:
