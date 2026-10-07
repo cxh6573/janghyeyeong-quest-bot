@@ -566,8 +566,24 @@ INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
 ※ 지지자가 운영하는 비공식 채널입니다."""
 
 
+def merge_state(other_path):
+    """다른 실행이 먼저 저장한 state.json과 합친다 (본 것·게시 기록 모두 합집합)."""
+    mine = load_state() or {"seen": [], "nkeys": [], "log": []}
+    with open(other_path, encoding="utf-8") as f:
+        other = json.load(f)
+    mine["seen"] = sorted(set(mine["seen"]) | set(other.get("seen", [])))
+    mine["nkeys"] = sorted(set(mine["nkeys"]) | set(other.get("nkeys", [])))
+    logs = {(x["link"], x["at"]): x for x in other.get("log", []) + mine["log"]}
+    mine["log"] = sorted(logs.values(), key=lambda x: x["at"])
+    save_state(mine)
+    print(f"상태 병합: 본 것 {len(mine['seen'])}건, 게시 기록 {len(mine['log'])}건")
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
+    if args[:1] == ["merge-state"]:
+        merge_state(args[1])
+        sys.exit(0)
     dry = "--dry-run" in args
     since = int(args[args.index("--since") + 1]) if "--since" in args else None
     if "backfill" in args:  # 최근 7일치 되올리기 (Actions 수동 실행 mode=backfill)
