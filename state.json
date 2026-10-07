@@ -49,6 +49,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260916-1789602465209.mp3?vod_id=C0000010545&podcast_id=P0000004845",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
+  "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:Be6fXx7DBYs",
   "link:yt:zYW6D0z2yXE",
@@ -73,6 +74,7 @@
   "show:cpbc:2026-09-16",
   "show:cpbc:2026-09-23",
   "show:cpbc:2026-09-30",
+  "show:cpbc:2026-10-07",
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
@@ -375,6 +377,13 @@
    "label": "일다",
    "title": "‘평범함’을 위한 투쟁, 누가 할 수 있나요?",
    "link": "https://www.ildaro.com/10559"
+  },
+  {
+   "at": "2026-10-08T08:42:47.931221+09:00",
+   "kind": "show",
+   "label": "cpbc 김준일의 시사천국",
+   "title": "10/7(수) [김수민·장혜영·문성호] 국감서 맞붙은 쟁점들…박진영부터 조희대·중수청까지",
+   "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868"
   }
  ]
 }
