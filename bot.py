@@ -743,12 +743,25 @@ def send(text, dry, chat=None):
 
 
 # ── 상태 ────────────────────────────────────────────────
+# 채널에서 직접 지웠지만 게시 기록에 남아 있던 글 (2026-10-06 10:34 첫 실행분, 채널 미리보기로 부재 확인).
+# 불러올 때마다 기록에서 빼고 deleted에 남긴다. 한 번 반영되면 아무 일도 하지 않으므로 지우지 않아도 된다.
+PURGE_AT = "2026-10-06T10:34"
+PURGE_LINKS = {"https://www.youtube.com/watch?v=" + v for v in (
+    "2Rmh8ZE6IOE", "HGb86TtdClA", "9X5yNumMJPs", "K4TMH7jljyY", "tSwsolEmHoM",
+    "OeHJp5a0ic0", "z98Vwhl_gn4", "_TURAOSM69c", "VSjTd_2pwaQ", "HxQTszQ2jZQ")}
+
+
 def load_state():
     try:
         with open(STATE_FILE, encoding="utf-8") as f:
-            return json.load(f)
+            st = json.load(f)
     except FileNotFoundError:
         return None
+    gone = [x for x in st.get("log", []) if x["at"].startswith(PURGE_AT) and x["link"] in PURGE_LINKS]
+    if gone:
+        st["log"] = [x for x in st["log"] if x not in gone]
+        st.setdefault("deleted", []).extend({"link": x["link"], "at": x["at"]} for x in gone)
+    return st
 
 
 def save_state(st):
@@ -762,6 +775,21 @@ def save_state(st):
         json.dump(st, f, ensure_ascii=False, indent=1)
 
 
+def fill_log_dates(st, items):
+    """원래 날짜(date)가 없는 예전 게시 기록에 수집 결과의 날짜·키를 채운다. 못 찾으면 그대로 둔다."""
+    by = {}
+    for i in items:
+        if i["date"]:
+            by.setdefault(i["link"], i)
+            by.setdefault(vkey(i["link"]), i)
+    for x in st["log"]:
+        if x.get("date"):
+            continue
+        i = by.get(x["link"]) or by.get(vkey(x["link"]))
+        if i:
+            x["date"], x["key"] = i["date"].isoformat(), i["key"]
+
+
 # ── 실행 ────────────────────────────────────────────────
 def run_update(dry, since_days=None, backfill=False, repost=False):
     """backfill=True: 최근 since_days일치를 '본 것' 여부와 무관하게 다시 게시하고 상태에 합친다."""
@@ -770,6 +798,7 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
     first_run = st is None
     if first_run:
         st = {"seen": [], "nkeys": [], "log": []}
+    fill_log_dates(st, items)
     seen, nkeys = set(st["seen"]), set(st["nkeys"])
     manual_done = set(st.get("manual_done", []))  # seen은 3000건에서 잘리므로 따로 보관
     orig_seen, orig_nkeys = set(seen), set(nkeys)
@@ -842,6 +871,7 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
                 manual_done.add(it["key"])
             st["log"].append({"at": datetime.now(KST).isoformat(), "kind": it["kind"],
                               "label": it["label"], "title": it["title"], "link": it["link"],
+                              "date": it["date"].isoformat() if it["date"] else None, "key": it["key"],
                               **({"mid": mid} if mid is not True else {})})
             posted += 1
             time.sleep(0 if dry else 3)
@@ -855,31 +885,106 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
         save_state(st)
 
 
+TITLE_DATE = re.compile(r"(?:\((\d{4})\.)?(\d{1,2})[./](\d{1,2})\s*\([월화수목금토일]\)")
+WEEKLY_BUDGET = 3500  # 메시지 하나의 HTML 원문 길이 상한 (텔레그램 한도 4096자보다 여유 있게)
+
+
+def log_date(x, now):
+    """게시 기록의 원래 날짜. 기록에 없으면 제목의 'M/D(요일)'·'M.D(요일)', 그래도 없으면 게시 시각."""
+    if x.get("date"):
+        return datetime.fromisoformat(x["date"]).astimezone(KST)
+    m = TITLE_DATE.search(x["title"])
+    if m:
+        d = datetime(now.year, int(m[2]), int(m[3]), tzinfo=KST)
+        return d.replace(year=d.year - 1) if d > now + timedelta(days=1) else d
+    return datetime.fromisoformat(x["at"]).astimezone(KST)
+
+
+def weekly_title(x):
+    t = next((ln.strip() for ln in x["title"].splitlines() if ln.strip()), "")
+    t = re.sub(r"^\d{1,2}[./]\d{1,2}\s*\([월화수목금토일]\)\s*", "", t)  # 앞머리 날짜는 따로 표시함
+    t = re.sub(r"\s+", " ", t)
+    if x["kind"] == "show" and (not t or t == "방송 출연"):
+        return x["label"]
+    return t if len(t) <= 60 else t[:59] + "…"
+
+
+def weekly_dedup(xs):
+    """같은 방송(방송명+방송일)·같은 링크는 하나만. 방송은 구체적인 제목을 가진 쪽을 남긴다."""
+    out = {}
+    for x in xs:
+        k = (f"show:{x['label']}:{day(x['_d'])}" if x["kind"] == "show" else vkey(x["link"]))
+        cur = out.get(k)
+        if cur is None or (cur["title"].endswith("방송 출연") and not x["title"].endswith("방송 출연")):
+            out[k] = x
+    return list(out.values())
+
+
 def run_weekly(dry):
     st = load_state() or {"log": []}
     now = datetime.now(KST)
     start = now - timedelta(days=7)
-    week = [x for x in st["log"] if x["at"] >= start.isoformat()]
-    if not week:
+    last = st.get("weekly_last") or start.isoformat()  # 지난 주간 정리 시각 (첫 정리면 7일 전)
+    for x in st["log"]:
+        x["_d"] = log_date(x, now)
+    # 이번 주: 원래 날짜가 최근 7일 안
+    week = weekly_dedup([x for x in st["log"] if start <= x["_d"] <= now + timedelta(days=1)])
+    # 늦게 들어온 소식: 지난 정리 뒤에 게시됐지만 날짜는 그 전 주 (홈페이지는 방송을 최대 1주 늦게 올림)
+    late = weekly_dedup([x for x in st["log"] if x["at"] > last
+                         and start - timedelta(days=7) <= x["_d"] < start])
+    if not week and not late:
         print("이번 주 게시물 없음: 주간 정리 생략")
         return
     e = html.escape
     order = [("show", "방송"), ("sns", "SNS"), ("solidarity", "연대"), ("column", "칼럼"), ("news", "기사"), ("video", "영상"),
              ("home", "망원정x")]
-    lines = [f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})", ""]
+
+    def line(x):
+        pre = f"{x['label']} · " if x["kind"] == "show" and weekly_title(x) != x["label"] else ""
+        return (f"· {fmt_date(x['_d'])} {e(pre)}"
+                f"<a href=\"{e(x['link'], quote=True)}\">{e(weekly_title(x), quote=False)}</a>")
+
+    blocks = []  # (머리 줄, [항목 줄])
     for kind, name in order:
-        xs = [x for x in week if x["kind"] == kind]
-        if not xs:
-            continue
-        lines.append(f"{ICON[kind]} <b>{name} {len(xs)}건</b>")
-        for x in xs:
-            lines.append(f"· <a href=\"{e(x['link'], quote=True)}\">{e(x['title'][:60], quote=False)}</a>")
-        lines.append("")
-    lines.append("거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다.")
-    text = "\n".join(lines)
-    if len(text) > 4000:  # 텔레그램 메시지 한도
-        text = text[:3990] + "…"
-    send(text, dry)
+        xs = sorted((x for x in week if x["kind"] == kind), key=lambda x: x["_d"])
+        if xs:
+            blocks.append((f"{ICON[kind]} <b>{name} {len(xs)}건</b>", [line(x) for x in xs]))
+    if late:
+        blocks.append(("🕰 <b>지난주 소식, 늦게 올라온 것</b>",
+                       [f"{ICON[x['kind']]} " + line(x)[2:] for x in sorted(late, key=lambda x: x["_d"])]))
+
+    head = f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})"
+    tail = "거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다."
+    msgs, cur = [], [head, ""]
+    for title, rows in blocks:
+        cur.append(title)
+        for r in rows:
+            if len("\n".join(cur + [r])) > WEEKLY_BUDGET:  # 넘치면 끊고 다음 메시지에서 이어 씀
+                started = cur[-1] != title  # 이 묶음의 항목이 이미 앞 메시지에 들어갔는지
+                if not started:
+                    cur.pop()
+                msgs.append(cur)
+                cur = [head, "", title + (" (이어서)" if started else "")]
+            cur.append(r)
+        cur.append("")
+    if len("\n".join(cur + [tail])) > WEEKLY_BUDGET:
+        msgs.append(cur)
+        cur = [head, ""]
+    cur.append(tail)
+    msgs.append(cur)
+    if len(msgs) > 1:
+        for n, m in enumerate(msgs, 1):
+            m[0] = f"{head} ({n}/{len(msgs)})"
+    for m in msgs:
+        while m and m[-1] == "":
+            m.pop()
+        send("\n".join(m), dry)
+        time.sleep(0 if dry else 3)
+    if not dry:
+        for x in st["log"]:
+            x.pop("_d", None)
+        st["weekly_last"] = now.isoformat()
+        save_state(st)
 
 
 INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
@@ -914,8 +1019,15 @@ def merge_state(other_path):
     mine["nkeys"] = sorted(set(mine["nkeys"]) | set(other.get("nkeys", [])))
     mine["manual_done"] = sorted(set(mine.get("manual_done", [])) | set(other.get("manual_done", [])))
     mine["tg_offset"] = max(mine.get("tg_offset", 0), other.get("tg_offset", 0))
+    wl = [v for v in (mine.get("weekly_last"), other.get("weekly_last")) if v]
+    if wl:
+        mine["weekly_last"] = max(wl)
     dels = {(x["link"], x["at"]): x for x in other.get("deleted", []) + mine.get("deleted", [])}
-    logs = {(x["link"], x["at"]): x for x in other.get("log", []) + mine["log"]}
+    logs = {}
+    for x in other.get("log", []) + mine["log"]:  # 같은 기록이면 원래 날짜가 채워진 쪽을 남김
+        k = (x["link"], x["at"])
+        if k not in logs or x.get("date") or not logs[k].get("date"):
+            logs[k] = x
     mine["log"] = sorted((v for k, v in logs.items() if k not in dels), key=lambda x: x["at"])
     mine["deleted"] = sorted(dels.values(), key=lambda x: x["at"])
     save_state(mine)
