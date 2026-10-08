@@ -39,6 +39,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT: "@janghyeyeong_quest"
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          TELEGRAM_OWNER: ${{ secrets.TELEGRAM_OWNER }}
         run: |
           if [ "${{ inputs.mode }}" = "intro" ]; then
             python bot.py intro
@@ -66,7 +67,7 @@ jobs:
             git fetch origin main
             git show origin/main:state.json > /tmp/remote_state.json
             python bot.py merge-state /tmp/remote_state.json
-            git reset --soft origin/main
+            git reset origin/main     # 색인을 원격 기준으로 (그 사이 바뀐 manual.yml 등을 되돌리지 않도록)
             git add state.json
             git commit -m "상태 갱신 (병합)"
           done
