@@ -413,20 +413,19 @@
    "label": "장혜영 페이스북",
    "title": "고 이한빛 피디 10주기를 맞이해 제작되는 다큐멘터리 <컷, 오케이! 퇴근합시다> 제작비 모금이 이제 단 5일 남았습니다. 아직 목표액에서 180만원 가량이 모자랍니다. \n\n방송 노동 현장의 열악한 현실을 고발하며 안타깝게 세상을 등진 고 이한빛 피디를 추모하고, 고인의 문제의식을 이어나가기 위한 작업에 여러분의 마음을 모아주시기를 부탁드립니다. 저부터...",
    "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l"
-  },
-  {
-   "at": "2026-10-08T10:21:47.472989+09:00",
-   "kind": "sns",
-   "label": "장혜영 페이스북",
-   "title": "정의당 국회의원 장혜영, 21대 국회를 마무리하며 인사드립니다.\n\n안녕하세요. 21대 국회 정의당 국회의원 장혜영입니다. \n\n지난 4년간 ‘장혜영의 정치’를 지지해주셔서 정말로 감사합니다. 당신이 계셨기에 평등과 존엄을 위한 장혜영의 정치도 가능했습니다. 저와 함께한 모든 이들의 마음을 담아 진심으로 감사드립니다.\n\n함께 이루어낸 변화와 연대의 뿌듯한...",
-   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl"
   }
  ],
- "tg_offset": 307482609,
+ "tg_offset": 307482610,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
   "manual:facebook:10244458796947682",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
+ ],
+ "deleted": [
+  {
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
+   "at": "2026-10-08T10:21:47.472989+09:00"
+  }
  ]
 }
