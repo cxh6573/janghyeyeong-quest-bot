@@ -17,6 +17,7 @@
      링크만          → 장혜영 본인 글이면 본문을 그대로(400자까지) 게시
      링크 + 한 줄    → 다른 사람 글: 한 줄을 제목으로 🤝 게시
      링크 + 긴 글    → 본문을 못 가져올 때: 붙여 넣은 글을 장혜영 글 본문으로 게시
+     삭제 77         → 채널 77번 글과 주간 정리 기록을 지움 (번호 대신 t.me 링크나 원문 링크도 됨)
   2) manual.yml에 적는다. 형식은 manual.yml 머리말 참고.
 
 환경변수
@@ -496,7 +497,42 @@ def clip(t, n=SNS_MAX):
 INBOX_HELP = ("링크를 보내 주세요.\n"
               "· 링크만 → 장혜영 본인 글이면 본문을 그대로 게시\n"
               "· 링크 + 한 줄 메모 → 다른 사람 글을 메모를 제목으로 게시\n"
-              "· 링크 + 전문 → 본문을 못 가져올 때, 붙여 넣은 글을 장혜영 글로 게시")
+              "· 링크 + 전문 → 본문을 못 가져올 때, 붙여 넣은 글을 장혜영 글로 게시\n"
+              "· 삭제 77 → 채널 77번 글과 주간 정리 기록에서 삭제 (번호 대신 원문 링크도 됨)")
+
+
+def delete_post(st, arg, dry):
+    """채널 글 삭제 + 게시 기록에서 제거. 지운 기록은 deleted에 남겨 상태 병합 때 되살아나지 않게 한다.
+    본 것(seen)·manual_done은 그대로 두므로 같은 글이 다시 올라가지 않는다. 답장 문구를 돌려준다."""
+    m = re.search(r"t\.me/(?:s/)?\w+/(\d+)", arg) or re.fullmatch(r"(\d+)", arg)
+    mid = int(m[1]) if m else None
+    if mid is not None:
+        hits = [x for x in st["log"] if x.get("mid") == mid]
+    else:
+        def match(link):
+            return [x for x in st["log"] if x["link"] == link or vkey(x["link"]) == vkey(link)]
+        hits = match(clean_link(arg))
+        if not hits and platform_of(arg):  # 공유 링크면 원래 주소로 풀어서 다시 찾기
+            hits = match(fetch_post(arg)["link"])
+        mid = next((x["mid"] for x in hits if x.get("mid")), None)
+    channel_msg = ""
+    if mid is not None:
+        if dry:
+            print(f"[dry-run] 채널 {mid}번 삭제")
+            ok = True
+        else:
+            ok = tg("deleteMessage", chat_id=os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest"),
+                    message_id=mid)
+        channel_msg = (f"채널 {mid}번 글을 지웠어요." if ok else
+                       f"채널 {mid}번 글은 봇이 못 지웠어요 (이미 지웠거나 48시간이 지남). 필요하면 텔레그램에서 직접 지워 주세요.")
+    if not hits:
+        return (channel_msg + "\n" if channel_msg else "") + \
+            "게시 기록에서는 못 찾았어요. 예전 글이면 번호 대신 원문 링크로 보내 주세요: 삭제 https://…"
+    gone = {(x["link"], x["at"]) for x in hits}
+    st["log"] = [x for x in st["log"] if (x["link"], x["at"]) not in gone]
+    st.setdefault("deleted", []).extend({"link": l, "at": a} for l, a in gone)
+    return (channel_msg + "\n" if channel_msg else "") + \
+        f"주간 정리 기록에서 지웠어요: {hits[0]['title'][:40]}"
 
 
 def inbox_items(st, dry):
@@ -523,6 +559,10 @@ def inbox_items(st, dry):
         if uid != OWNER_ID:
             continue
         text = msg.get("text") or msg.get("caption") or ""
+        cmd = re.match(r"^\s*/?(?:삭제|delete)\s+(\S+)", text)
+        if cmd:
+            reply(chat, delete_post(st, cmd[1], dry))
+            continue
         urls = [e["url"] for e in msg.get("entities", []) + msg.get("caption_entities", [])
                 if e.get("type") == "text_link"] + re.findall(r"https?://\S+", text)
         if not urls:
@@ -715,6 +755,8 @@ def save_state(st):
     # 기록은 최근 60일만 유지
     cutoff = (datetime.now(KST) - timedelta(days=60)).isoformat()
     st["log"] = [x for x in st["log"] if x["at"] >= cutoff]
+    if "deleted" in st:
+        st["deleted"] = [x for x in st["deleted"] if x["at"] >= cutoff]
     st["seen"] = st["seen"][-3000:]
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(st, f, ensure_ascii=False, indent=1)
@@ -790,7 +832,8 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
             send("채널 게시에 실패했어요. 잠시 뒤 다시 보내 주세요.", dry, chat=it["reply_chat"])
         if mid:
             if it.get("reply_chat"):
-                send(f"게시했어요 → https://t.me/{channel}/{mid}" if mid is not True else "게시했어요",
+                send(f"게시했어요 → https://t.me/{channel}/{mid}\n잘못 올렸으면: 삭제 {mid}"
+                     if mid is not True else "게시했어요",
                      dry, chat=it["reply_chat"])
             seen.add(it["key"])
             if it.get("alt"):
@@ -798,7 +841,8 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
             if it.get("manual"):
                 manual_done.add(it["key"])
             st["log"].append({"at": datetime.now(KST).isoformat(), "kind": it["kind"],
-                              "label": it["label"], "title": it["title"], "link": it["link"]})
+                              "label": it["label"], "title": it["title"], "link": it["link"],
+                              **({"mid": mid} if mid is not True else {})})
             posted += 1
             time.sleep(0 if dry else 3)
     print(f"새 항목 {len(new)}건 중 {posted}건 게시" + (" (dry-run)" if dry else ""))
@@ -845,10 +889,15 @@ INTRO = """🗡 <b>장혜영의 하찮은 모험담</b>
 📡 <b>이런 곳에서 가져와요</b>
 망원정x 홈페이지 · 장혜영 유튜브(빅토크) · 출연 방송(cpbc 김준일의 시사천국, 한국일보 이슈전파사, SBS 최선호의 뉴스직격, CBS 주말뉴스쇼) · 칼럼(한겨레 토요판, 일다) · '장혜영' 언론 보도
 
+
+🤳 <b>직접 골라 가져와요</b> (그래서 놓치는 게 있어요 ㅠㅠ)
+장혜영 SNS·연대 소식
+
+
 🗓 매주 일요일엔 한 주를 묶은 <b>'이번 주 모험담'</b>을 올려요.
 
 거대한 전투 대신 아침 라디오 한 꼭지, 칼럼 한 편, 동네 모임 한 번.
-그런 일들이 쌓여 세상은 분명히 변하고 있다고 믿으며, 빠짐없이 기록합니다.
+그런 일들이 쌓여 세상은 분명히 변하고 있다고 믿으며, 부지런히 기록합니다.
 
 "모두가 무사히 할머니, 할아버지가 될 수 있는 사회"를 향해.
 지는 것에 익숙해지지 맙시다.
@@ -865,8 +914,10 @@ def merge_state(other_path):
     mine["nkeys"] = sorted(set(mine["nkeys"]) | set(other.get("nkeys", [])))
     mine["manual_done"] = sorted(set(mine.get("manual_done", [])) | set(other.get("manual_done", [])))
     mine["tg_offset"] = max(mine.get("tg_offset", 0), other.get("tg_offset", 0))
+    dels = {(x["link"], x["at"]): x for x in other.get("deleted", []) + mine.get("deleted", [])}
     logs = {(x["link"], x["at"]): x for x in other.get("log", []) + mine["log"]}
-    mine["log"] = sorted(logs.values(), key=lambda x: x["at"])
+    mine["log"] = sorted((v for k, v in logs.items() if k not in dels), key=lambda x: x["at"])
+    mine["deleted"] = sorted(dels.values(), key=lambda x: x["at"])
     save_state(mine)
     print(f"상태 병합: 본 것 {len(mine['seen'])}건, 게시 기록 {len(mine['log'])}건")
 
