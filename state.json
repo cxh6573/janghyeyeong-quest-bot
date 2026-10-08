@@ -51,6 +51,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
@@ -61,6 +62,7 @@
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
   "manual:facebook:10244458796947682",
+  "manual:facebook:10244487683669832",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
@@ -413,13 +415,22 @@
    "label": "장혜영 페이스북",
    "title": "고 이한빛 피디 10주기를 맞이해 제작되는 다큐멘터리 <컷, 오케이! 퇴근합시다> 제작비 모금이 이제 단 5일 남았습니다. 아직 목표액에서 180만원 가량이 모자랍니다. \n\n방송 노동 현장의 열악한 현실을 고발하며 안타깝게 세상을 등진 고 이한빛 피디를 추모하고, 고인의 문제의식을 이어나가기 위한 작업에 여러분의 마음을 모아주시기를 부탁드립니다. 저부터...",
    "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l"
+  },
+  {
+   "at": "2026-10-08T10:33:42.812831+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "항상심으로 함께하시는 이수현 선생님, 그리고 장애가 삶의 자연스러운 일부임을 교육 현장에서 학생과 교사를 비롯해 모든 학내 구성원들이 시나브로 받아들일 수 있는 환경을 만들기 위해 노고하시는 모든 분들을 응원하는 마음으로 공유합니다.",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
+   "mid": 78
   }
  ],
- "tg_offset": 307482610,
+ "tg_offset": 307482611,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
   "manual:facebook:10244458796947682",
+  "manual:facebook:10244487683669832",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ],
  "deleted": [
