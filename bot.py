@@ -12,9 +12,17 @@
   python bot.py --dry-run  # 게시하지 않고 출력만
   python bot.py --dry-run --since 7   # 최근 7일치를 '새 소식'으로 간주해 미리보기
 
+직접 찾은 소식은 두 가지로 넣는다. 둘 다 다음 실행(최대 15분 뒤)에 게시된다.
+  1) 텔레그램에서 봇에게 1:1로 링크를 보낸다 (TELEGRAM_OWNER 계정만 받음).
+     링크만          → 장혜영 본인 글이면 본문을 그대로(400자까지) 게시
+     링크 + 한 줄    → 다른 사람 글: 한 줄을 제목으로 🤝 게시
+     링크 + 긴 글    → 본문을 못 가져올 때: 붙여 넣은 글을 장혜영 글 본문으로 게시
+  2) manual.yml에 적는다. 형식은 manual.yml 머리말 참고.
+
 환경변수
   TELEGRAM_TOKEN  봇 토큰 (필수, GitHub Secrets에 저장)
   TELEGRAM_CHAT   채널 (기본값 @janghyeyeong_quest)
+  TELEGRAM_OWNER  1:1 메시지를 받을 텔레그램 사용자 ID (숫자). 비어 있으면 봇이 보낸 사람에게 ID를 알려 줌
 """
 import html
 import json
@@ -74,6 +82,24 @@ NEWS_URL = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(NEWS_QU
 NEWS_EXCLUDE_SOURCES = ("브런치", "네이트", "v.daum.net", "다음", "네이버 블로그", "티스토리",
                         "public25.com")
 NEWS_EXCLUDE_WORDS = ("[부고]", "[인사]", "부고", "모친상", "부친상", "장모상", "빙부상")
+
+# 직접 찾은 소식: 자동으로 못 잡는 글(인스타 등)을 사람이 적어 두면 봇이 게시한다.
+MANUAL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "manual.yml")
+MANUAL_FIELDS = ("링크", "종류", "출처", "제목", "설명")
+MANUAL_KIND = {"연대": "solidarity", "방송": "show", "칼럼": "column", "기사": "news",
+               "영상": "video", "망원정x": "home"}
+# 공유 추적값 (인스타·스레드는 쿼리 전체를 지움)
+TRACKING_PARAMS = re.compile(r"^(utm_\w+|stkn|igsh|igshid|fbclid|mibextid|si)$")
+FB_KEEP_PARAMS = ("story_fbid", "id", "fbid", "v", "set")  # 옛 형식 페이스북 주소는 쿼리가 곧 글 주소
+
+# 텔레그램 1:1 입력
+OWNER_ID = os.environ.get("TELEGRAM_OWNER", "").strip()
+# 장혜영 본인 계정 (주소·아이디 기준, 소문자)
+JHY_HANDLES = {"facebook": {"serious.hyeyeong"}, "instagram": {"serious_sister"}, "x": {"janghyeyeong"}}
+SNS_NAME = {"facebook": "페이스북", "instagram": "인스타그램", "x": "트위터"}  # 채널에서는 'X' 대신 '트위터'로 표기
+SNS_MAX = 400   # 본인 글은 이 길이까지만 옮기고 나머지는 원문 링크로
+MEMO_MAX = 80   # 링크 뒤 글이 이보다 길면 메모가 아니라 '붙여 넣은 본문'으로 본다
+FB_UA = "facebookexternalhit/1.1"  # 페이스북은 링크 미리보기용 UA에 본문을 내줌
 
 
 # ── 공통 유틸 ───────────────────────────────────────────
@@ -300,6 +326,241 @@ def vkey(link):
     return "yt:" + m[1] if m else link
 
 
+def clean_link(u):
+    """공유 링크에 붙는 추적값 제거."""
+    p = urllib.parse.urlsplit(u.strip())
+    host = p.netloc.lower()
+    if host.endswith(("instagram.com", "threads.net", "threads.com")):
+        q = ""
+    elif host.endswith("facebook.com"):
+        q = urllib.parse.urlencode([(k, v) for k, v in urllib.parse.parse_qsl(p.query)
+                                    if k in FB_KEEP_PARAMS])
+    else:
+        q = urllib.parse.urlencode([(k, v) for k, v in urllib.parse.parse_qsl(p.query, keep_blank_values=True)
+                                    if not TRACKING_PARAMS.match(k)])
+    return urllib.parse.urlunsplit((p.scheme, p.netloc, p.path, q, ""))
+
+
+def manual_items():
+    """manual.yml 읽기. 외부 라이브러리 없이 읽을 수 있게 단순한 형식만 받는다:
+    '- 링크: ...'로 항목 시작, '  키: 값'으로 필드, 들여쓴 줄은 앞 필드에 이어 붙임."""
+    try:
+        with open(MANUAL_FILE, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except FileNotFoundError:
+        return []
+    entries, cur, last = [], None, None
+    for n, line in enumerate(lines, 1):
+        s = line.strip()
+        if not s or s.startswith("#"):
+            continue
+        if line.startswith("- "):
+            cur, last = {}, None
+            entries.append((n, cur))
+            line = "  " + line[2:]
+        if cur is None:
+            print(f"[warn] manual.yml {n}행: '- 링크:'로 시작하는 항목 밖의 줄이라 무시", file=sys.stderr)
+            continue
+        m = re.match(r"^\s*([^:\s]+)\s*:\s?(.*)$", line)
+        if m and m[1] in MANUAL_FIELDS:
+            last = m[1]
+            cur[last] = m[2].strip()
+        elif last:
+            cur[last] += "\n" + s
+        else:
+            print(f"[warn] manual.yml {n}행: 알 수 없는 줄이라 무시", file=sys.stderr)
+    out = []
+    for n, x in entries:
+        x = {k: re.sub(r'^(["\'])(.*)\1$', r"\2", v.strip(), flags=re.S) for k, v in x.items()}
+        if not x.get("링크") or not x.get("제목"):
+            print(f"[warn] manual.yml {n}행 항목: 링크·제목이 없어 건너뜀", file=sys.stderr)
+            continue
+        kind = MANUAL_KIND.get(x.get("종류") or "연대")
+        if not kind:
+            print(f"[warn] manual.yml {n}행 항목: 종류 '{x['종류']}'를 몰라 '연대'로 게시", file=sys.stderr)
+            kind = "solidarity"
+        link = clean_link(x["링크"])
+        v = vkey(link)
+        out.append({"key": "manual:" + v, "alt": "link:" + v, "manual": True, "kind": kind,
+                    "label": x.get("출처") or "직접 찾은 소식", "title": x["제목"],
+                    "desc": x.get("설명", ""), "link": link, "date": None, "link_text": "원문 보기"})
+    print(f"[소스] manual.yml: {len(out)}건", file=sys.stderr)
+    return out
+
+
+# ── 텔레그램 1:1 입력 ───────────────────────────────────
+def tg(method, **params):
+    token = os.environ.get("TELEGRAM_TOKEN")
+    if not token:
+        return None
+    data = urllib.parse.urlencode(params).encode()
+    try:
+        req = urllib.request.Request(f"https://api.telegram.org/bot{token}/{method}", data=data)
+        with urllib.request.urlopen(req, timeout=20) as r:
+            res = json.load(r)
+            return res.get("result") if res.get("ok") else None
+    except Exception as ex:
+        print(f"[warn] 텔레그램 {method} 실패: {ex}", file=sys.stderr)
+        return None
+
+
+def fetch_page(url, ua=UA):
+    """(최종 주소, html). 짧은 공유 링크는 원래 주소로 풀린다."""
+    req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept-Language": "ko-KR,ko;q=0.9"})
+    try:
+        with urllib.request.urlopen(req, timeout=25) as r:
+            return r.geturl(), r.read().decode("utf-8", "ignore")
+    except Exception as e:
+        print(f"[warn] 게시물 가져오기 실패 {url[:80]}: {e}", file=sys.stderr)
+        return url, ""
+
+
+def og(page, prop):
+    for pat in (r'<meta[^>]*property="%s"[^>]*content="([^"]*)"', r'<meta[^>]*content="([^"]*)"[^>]*property="%s"'):
+        m = re.search(pat.replace("%s", re.escape(prop)), page)
+        if m:
+            return html.unescape(m[1]).strip()
+    return ""
+
+
+def platform_of(url):
+    h = urllib.parse.urlsplit(url).netloc.lower()
+    if h.endswith(("facebook.com", "fb.me", "fb.watch")):
+        return "facebook"
+    if h.endswith("instagram.com"):
+        return "instagram"
+    if h.endswith(("x.com", "twitter.com")):
+        return "x"
+    return None
+
+
+def fetch_post(url):
+    """SNS 게시물 한 건: 작성자 아이디·이름, 본문, 게시일, 정리된 링크, 글 ID."""
+    pf = platform_of(url)
+    out = {"platform": pf, "author": "", "name": "", "text": "", "date": None,
+           "link": clean_link(url), "id": ""}
+    if pf == "x":  # 트위터는 로그인 없이 못 읽어서 무료 미리보기 서비스(fxtwitter)를 거친다
+        m = re.search(r"/status(?:es)?/(\d+)", url)
+        raw = fetch(f"https://api.fxtwitter.com/status/{m[1]}", tries=2) if m else None
+        try:
+            t = json.loads(raw)["tweet"]
+            out.update(author=t["author"]["screen_name"], name=t["author"]["name"], text=t["text"],
+                       date=datetime.fromtimestamp(t["created_timestamp"], KST), id=m[1],
+                       link=f"https://x.com/{t['author']['screen_name']}/status/{m[1]}")
+        except Exception:
+            pass
+        return out
+    if pf not in ("facebook", "instagram"):
+        return out
+    final, page = fetch_page(url, FB_UA if pf == "facebook" else UA)
+    if not page or "/login" in final:
+        return out
+    path = [x for x in urllib.parse.urlsplit(final).path.split("/") if x]
+    if pf == "facebook" and (not path or path[0] in ("share", "login", "l.php", "watch", "story.php")):
+        return out  # 공유 링크가 원래 주소로 안 풀림 = 못 가져온 것
+    desc = og(page, "og:description")
+    if pf == "facebook":
+        out.update(author=path[0] if path else "", name=og(page, "og:title"), text=desc,
+                   link=clean_link(final))
+        m = re.search(r"/(\d{8,})/?$", og(page, "og:url"))
+        out["id"] = m[1] if m else ""
+        if out["name"] in ("Facebook", "") and not desc:
+            out["text"] = ""
+    else:  # 인스타: '좋아요 N개 ... - 아이디 on 날짜: "본문".'
+        # 언어 설정에 따라 ' on 날짜' / ' - 날짜' / '님, 날짜'로 달라진다
+        m = re.match(r'^.*? - ([\w.]+)(?: on | - |님, )([^:"]+): "(.*)"\.?\s*$', desc, re.S)
+        if m:
+            out.update(author=m[1], name=m[1], text=m[3].strip())
+            for f in ("%B %d, %Y", "%Y년 %m월 %d일"):
+                try:
+                    out["date"] = datetime.strptime(m[2].strip(), f).replace(tzinfo=KST)
+                    break
+                except ValueError:
+                    pass
+        if len(path) >= 2 and path[0] in ("p", "reel", "tv"):
+            out["id"] = path[1]
+    return out
+
+
+def clip(t, n=SNS_MAX):
+    t = t.strip()
+    if len(t) <= n:
+        return t
+    cut = t[:n]
+    i = max(cut.rfind("\n"), cut.rfind(" "))
+    if i > n * 0.6:  # 단어·줄 중간에서 자르지 않도록
+        cut = cut[:i]
+    return cut.rstrip() + "…"
+
+
+INBOX_HELP = ("링크를 보내 주세요.\n"
+              "· 링크만 → 장혜영 본인 글이면 본문을 그대로 게시\n"
+              "· 링크 + 한 줄 메모 → 다른 사람 글을 메모를 제목으로 게시\n"
+              "· 링크 + 전문 → 본문을 못 가져올 때, 붙여 넣은 글을 장혜영 글로 게시")
+
+
+def inbox_items(st, dry):
+    """봇에게 온 1:1 메시지를 게시 항목으로. 처리한 메시지는 tg_offset으로 넘긴다."""
+    res = tg("getUpdates", offset=st.get("tg_offset", 0), timeout=0, allowed_updates='["message"]')
+    if not res:
+        return []
+
+    def reply(chat, text):
+        send(text, dry, chat=chat)
+
+    items, last = [], None
+    for u in res:
+        last = u["update_id"]
+        msg = u.get("message") or {}
+        if msg.get("chat", {}).get("type") != "private":
+            continue
+        uid, chat = str(msg.get("from", {}).get("id", "")), msg["chat"]["id"]
+        if not OWNER_ID:
+            reply(chat, f"아직 주인이 등록되지 않은 봇이에요.\n당신의 텔레그램 ID: {uid}\n"
+                        "GitHub 저장소 Settings → Secrets and variables → Actions에 "
+                        "TELEGRAM_OWNER 이름으로 이 숫자를 넣으면, 이 계정의 메시지만 받아요.")
+            continue
+        if uid != OWNER_ID:
+            continue
+        text = msg.get("text") or msg.get("caption") or ""
+        urls = [e["url"] for e in msg.get("entities", []) + msg.get("caption_entities", [])
+                if e.get("type") == "text_link"] + re.findall(r"https?://\S+", text)
+        if not urls:
+            reply(chat, INBOX_HELP)
+            continue
+        url = urls[0]
+        memo = text.replace(url, "").strip()
+        pasted, note = (memo, "") if len(memo) > MEMO_MAX else ("", memo)
+        post = fetch_post(url)
+        pf = post["platform"]
+        print(f"[소스] 1:1 메시지: {pf or '기타'} · {post['author'] or '작성자 모름'} · 본문 {len(post['text'])}자",
+              file=sys.stderr)
+        is_jhy = post["author"].lower() in JHY_HANDLES.get(pf, set()) if post["author"] else False
+        base = {"key": "manual:" + (f"{pf}:{post['id']}" if post["id"] else vkey(post["link"])),
+                "alt": "link:" + vkey(post["link"]), "manual": True, "desc": "",
+                "link": post["link"], "date": post["date"], "reply_chat": chat, "link_text": "원문 보기"}
+        if is_jhy or pasted:  # 긴 글을 붙여 보냈으면 장혜영 글 전문으로 본다
+            body = post["text"] if (is_jhy and post["text"]) else pasted
+            if not body:
+                reply(chat, "장혜영 글인데 본문을 못 가져왔어요. 링크 뒤에 전문을 붙여 다시 보내 주세요.")
+                continue
+            items.append({**base, "kind": "sns", "label": f"장혜영 {SNS_NAME.get(pf, 'SNS')}",
+                          "title": clip(body)})
+        elif note:
+            who = post["name"] or post["author"]
+            items.append({**base, "kind": "solidarity", "title": note,
+                          "label": f"{who} {SNS_NAME.get(pf, '')}".strip() or "직접 찾은 소식"})
+        elif not post["text"]:
+            reply(chat, "본문을 못 가져왔어요.\n장혜영 글이면 링크 뒤에 전문을, "
+                        "다른 사람 글이면 한 줄 메모를 붙여 다시 보내 주세요.")
+        else:
+            reply(chat, f"{post['author']}의 글이라 소개할 한 줄 메모가 필요해요. 링크 뒤에 메모를 붙여 다시 보내 주세요.\n"
+                        f"(장혜영 본인 계정이 맞다면 bot.py의 JHY_HANDLES에 '{post['author']}'를 추가해 주세요.)")
+    if last is not None and not dry:
+        st["tg_offset"] = last + 1
+    return items
+
+
 def day(d):
     return d.strftime("%Y-%m-%d") if d else ""
 
@@ -329,7 +590,8 @@ def collect():
 
     # 2) 장혜영 유튜브: 전부
     for e in parse_feed(JHY_YOUTUBE):
-        items.append({"key": "video:" + vkey(e["link"]), "kind": "video", "label": "장혜영 유튜브",
+        items.append({"key": "video:" + vkey(e["link"]), "alt": "link:" + vkey(e["link"]),
+                      "kind": "video", "label": "장혜영 유튜브",
                       "title": html.unescape(e["title"]), "link": e["link"], "date": e["date"]})
 
     # 3) 망원정x 홈페이지 RSS
@@ -382,13 +644,17 @@ def collect():
     # 5) 정기 기고 칼럼 + 일다 기사
     items.extend(hani_column())
     items.extend(ildaro_items())
+
+    # 6) 직접 찾은 소식
+    items.extend(manual_items())
     return items
 
 
 # ── 메시지 ──────────────────────────────────────────────
-ICON = {"show": "📺", "news": "📰", "video": "▶️", "home": "✉️", "column": "✍️"}
+ICON = {"show": "📺", "news": "📰", "video": "▶️", "home": "✉️", "column": "✍️", "solidarity": "🤝",
+        "sns": "💬"}
 LINK_TEXT = {"show": "다시 보기", "news": "기사 보기", "video": "영상 보기", "home": "자세히 보기",
-             "column": "칼럼 읽기"}
+             "column": "칼럼 읽기", "solidarity": "원문 보기", "sns": "원문 보기"}
 WEEKDAY = "월화수목금토일"
 
 
@@ -400,24 +666,28 @@ def render(it):
     def e(s, quote=False):
         return html.escape(s, quote=quote)
     when = f"{fmt_date(it['date'])} · " if it["date"] else ""
+    desc = f"{e(it['desc'])}\n" if it.get("desc") else ""
     return (f"{ICON[it['kind']]} <b>{e(it['label'])}</b>\n"
             f"{e(it['title'])}\n"
-            f"{when}<a href=\"{e(it['link'], quote=True)}\">{LINK_TEXT[it['kind']]}</a>")
+            f"{desc}"
+            f"{when}<a href=\"{e(it['link'], quote=True)}\">{it.get('link_text') or LINK_TEXT[it['kind']]}</a>")
 
 
-def send(text, dry):
+def send(text, dry, chat=None):
+    """게시 성공 시 메시지 번호를 돌려준다 (dry-run은 True). chat을 주면 그 대화방(1:1 답장)으로."""
     if dry:
-        print("─" * 40 + "\n" + text)
+        print("─" * 40 + (f" (→ {chat}에게 답장)" if chat else "") + "\n" + text)
         return True
     token = os.environ["TELEGRAM_TOKEN"]
-    chat = os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest")
+    chat = chat or os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest")
     data = urllib.parse.urlencode({"chat_id": chat, "text": text, "parse_mode": "HTML"}).encode()
     for attempt in range(3):
         try:
             req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=data)
             with urllib.request.urlopen(req, timeout=20) as r:
-                if json.load(r).get("ok"):
-                    return True
+                res = json.load(r)
+                if res.get("ok"):
+                    return res["result"]["message_id"]
         except urllib.error.HTTPError as err:
             body = err.read().decode(errors="ignore")
             print(f"[warn] 전송 실패 {err.code}: {body[:200]}", file=sys.stderr)
@@ -459,6 +729,7 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
     if first_run:
         st = {"seen": [], "nkeys": [], "log": []}
     seen, nkeys = set(st["seen"]), set(st["nkeys"])
+    manual_done = set(st.get("manual_done", []))  # seen은 3000건에서 잘리므로 따로 보관
     orig_seen, orig_nkeys = set(seen), set(nkeys)
 
     if since_days is not None:  # 최근 N일치를 새 소식으로 간주 (미리보기·되올리기)
@@ -477,11 +748,15 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
         print(f"첫 실행: 기존 항목 {len(st['seen'])}건을 기록만 하고 게시하지 않음")
         return
 
+    if since_days is None:  # 평소 실행 때만 1:1 메시지를 읽는다 (미리보기·되올리기는 제외)
+        items.extend(inbox_items(st, dry))
+
     # 오래된 항목은 게시하지 않음 (피드가 복구되며 옛 영상이 뒤늦게 잡히는 경우 대비).
     # 홈페이지는 방송을 최대 1주 늦게 올리므로 여유를 10일로 둔다.
     # 되올리기(backfill)는 지정한 기간을 그대로 쓴다.
     too_old = datetime.now(KST) - timedelta(days=since_days if backfill else 10)
-    items = [i for i in items if not i["date"] or i["date"] >= too_old]
+    # 직접 넣은 소식은 날짜가 오래돼도 게시한다.
+    items = [i for i in items if i.get("manual") or not i["date"] or i["date"] >= too_old]
     if backfill and not repost:  # 이미 채널에 올라간 항목(게시 기록)은 다시 올리지 않음
         logged = {x["link"] for x in st["log"]}
         items = [i for i in items if i["link"] not in logged]
@@ -491,7 +766,10 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
 
     new, batch_keys = [], set()
     for it in sorted(items, key=lambda x: x["date"] or datetime.min.replace(tzinfo=KST)):
-        if it["key"] in seen or it["key"] in batch_keys or it.get("alt") in seen:
+        if (it["key"] in seen or it["key"] in batch_keys or it.get("alt") in seen
+                or it["key"] in manual_done):
+            if it.get("reply_chat"):
+                send("이미 채널에 올라간 글이에요.", dry, chat=it["reply_chat"])
             continue
         if it.get("nkey") and any(it["nkey"][:15] == k[:15] for k in nkeys):  # 같은 기사 중복
             seen.add(it["key"])
@@ -503,11 +781,22 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
 
     posted = 0
     cap = 30 if backfill else MAX_POSTS_PER_RUN
-    for it in new[:cap]:
-        if send(render(it), dry):
+    # 직접 넣은 소식은 한도와 무관하게 모두 게시 (1:1 메시지는 다시 읽지 않으므로)
+    to_post = [i for i in new if i.get("manual")] + [i for i in new if not i.get("manual")][:cap]
+    channel = os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest").lstrip("@")
+    for it in to_post:
+        mid = send(render(it), dry)
+        if not mid and it.get("reply_chat"):
+            send("채널 게시에 실패했어요. 잠시 뒤 다시 보내 주세요.", dry, chat=it["reply_chat"])
+        if mid:
+            if it.get("reply_chat"):
+                send(f"게시했어요 → https://t.me/{channel}/{mid}" if mid is not True else "게시했어요",
+                     dry, chat=it["reply_chat"])
             seen.add(it["key"])
             if it.get("alt"):
                 seen.add(it["alt"])
+            if it.get("manual"):
+                manual_done.add(it["key"])
             st["log"].append({"at": datetime.now(KST).isoformat(), "kind": it["kind"],
                               "label": it["label"], "title": it["title"], "link": it["link"]})
             posted += 1
@@ -517,6 +806,7 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
         seen |= orig_seen | {i["key"] for i in items} | {i["alt"] for i in items if i.get("alt")}
         nkeys |= orig_nkeys
     st["seen"], st["nkeys"] = sorted(seen), sorted(nkeys)
+    st["manual_done"] = sorted(manual_done)
     if not dry and (since_days is None or backfill):
         save_state(st)
 
@@ -530,7 +820,7 @@ def run_weekly(dry):
         print("이번 주 게시물 없음: 주간 정리 생략")
         return
     e = html.escape
-    order = [("show", "방송"), ("column", "칼럼"), ("news", "기사"), ("video", "영상"),
+    order = [("show", "방송"), ("sns", "SNS"), ("solidarity", "연대"), ("column", "칼럼"), ("news", "기사"), ("video", "영상"),
              ("home", "망원정x")]
     lines = [f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})", ""]
     for kind, name in order:
@@ -573,6 +863,8 @@ def merge_state(other_path):
         other = json.load(f)
     mine["seen"] = sorted(set(mine["seen"]) | set(other.get("seen", [])))
     mine["nkeys"] = sorted(set(mine["nkeys"]) | set(other.get("nkeys", [])))
+    mine["manual_done"] = sorted(set(mine.get("manual_done", [])) | set(other.get("manual_done", [])))
+    mine["tg_offset"] = max(mine.get("tg_offset", 0), other.get("tg_offset", 0))
     logs = {(x["link"], x["at"]): x for x in other.get("log", []) + mine["log"]}
     mine["log"] = sorted(logs.values(), key=lambda x: x["at"])
     save_state(mine)
