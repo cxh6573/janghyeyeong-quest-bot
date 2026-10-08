@@ -50,10 +50,12 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
+  "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:Be6fXx7DBYs",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
+  "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
   "show:cbs:2026-09-01",
@@ -384,6 +386,17 @@
    "label": "cpbc 김준일의 시사천국",
    "title": "10/7(수) [김수민·장혜영·문성호] 국감서 맞붙은 쟁점들…박진영부터 조희대·중수청까지",
    "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868"
+  },
+  {
+   "at": "2026-10-08T10:13:32.311676+09:00",
+   "kind": "solidarity",
+   "label": "RUN/OUT 인스타그램",
+   "title": "2026년 1월 국회 RUN/OUT 정치 축제에 보낸 연대·축하 메시지",
+   "link": "https://www.instagram.com/p/Dd_HRL4Cayb/"
   }
+ ],
+ "tg_offset": 307482606,
+ "manual_done": [
+  "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ]
 }
