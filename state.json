@@ -56,6 +56,7 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "link:yt:2Rmh8ZE6IOE",
+  "link:yt:4YPraauI4bQ",
   "link:yt:Be6fXx7DBYs",
   "link:yt:bWy6Q2BuIaQ",
   "link:yt:zYW6D0z2yXE",
@@ -90,6 +91,7 @@
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
+  "show:sbs:2026-10-08",
   "video:yt:8UmGErgjiTM",
   "video:yt:9X5yNumMJPs",
   "video:yt:Akds_FfNf58",
@@ -433,6 +435,14 @@
    "title": "[이슈전파사 LIVE] 국민 64% 김어준 '불신'/이화영의 가석방 요구… 무슨 의미?/추미애 또 “김지용은 친윤, 검증 똑바로”…김민석 “절제 필요” 거듭 경고I261008(목)",
    "link": "https://www.youtube.com/watch?v=bWy6Q2BuIaQ",
    "mid": 79
+  },
+  {
+   "at": "2026-10-08T16:14:33.039120+09:00",
+   "kind": "show",
+   "label": "SBS 최선호의 뉴스직격",
+   "title": "[뉴스직격] 조응천 전 의원, 김근식 경남대 석좌교수, 장혜영 전 정의당 의원[정치는 조근조근]",
+   "link": "https://www.youtube.com/watch?v=4YPraauI4bQ",
+   "mid": 80
   }
  ],
  "tg_offset": 307482611,
