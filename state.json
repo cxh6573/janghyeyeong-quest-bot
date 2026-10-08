@@ -50,11 +50,13 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:Be6fXx7DBYs",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
+  "manual:facebook:10244424907220460",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
@@ -393,10 +395,18 @@
    "label": "RUN/OUT 인스타그램",
    "title": "2026년 1월 국회 RUN/OUT 정치 축제에 보낸 연대·축하 메시지",
    "link": "https://www.instagram.com/p/Dd_HRL4Cayb/"
+  },
+  {
+   "at": "2026-10-08T10:19:33.211271+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "충남도가 김지은 씨에 대한 소송비용 추심을 포기했다고 합니다. 당연한 일입니다.\n\n긴 싸움의 끝에 선 김지은 씨에게 변함 없는 연대의 마음을 보냅니다. 함께하시는 연대자들께도 감사드립니다.",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl"
   }
  ],
- "tg_offset": 307482606,
+ "tg_offset": 307482607,
  "manual_done": [
+  "manual:facebook:10244424907220460",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ]
 }
