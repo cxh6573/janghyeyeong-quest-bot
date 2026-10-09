@@ -59,6 +59,7 @@
   "link:yt:4YPraauI4bQ",
   "link:yt:Be6fXx7DBYs",
   "link:yt:bWy6Q2BuIaQ",
+  "link:yt:jQ-YN2Oh0g0",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
   "manual:facebook:10232576611540473",
@@ -88,6 +89,7 @@
   "show:cpbc:2026-09-30",
   "show:cpbc:2026-10-07",
   "show:hk:2026-10-08",
+  "show:hk:2026-10-09",
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
@@ -423,6 +425,16 @@
    "mid": 80,
    "date": "2026-10-08T18:04:44+09:00",
    "key": "show:sbs:2026-10-08"
+  },
+  {
+   "at": "2026-10-09T15:21:45.324587+09:00",
+   "kind": "show",
+   "label": "한국일보 이슈전파사",
+   "title": "'선택적' 조희대 대법원장, 막말 대행진 중인 김태규 국민의힘 의원, 추미애 또 \"김지용=친윤\" 주장 ㅣ 이슈전파사 이슈안테나 핫클립 모아보기(10월 6일~10월 8일)",
+   "link": "https://www.youtube.com/watch?v=jQ-YN2Oh0g0",
+   "date": "2026-10-09T15:00:01+09:00",
+   "key": "show:hk:2026-10-09",
+   "mid": 81
   }
  ],
  "tg_offset": 307482611,
