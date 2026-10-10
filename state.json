@@ -59,6 +59,7 @@
   "link:yt:4YPraauI4bQ",
   "link:yt:Be6fXx7DBYs",
   "link:yt:bWy6Q2BuIaQ",
+  "link:yt:e6MZNH5Z-Mw",
   "link:yt:jQ-YN2Oh0g0",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
@@ -112,6 +113,7 @@
   "video:yt:YmzxYv3yns0",
   "video:yt:ZfPgZKywYtA",
   "video:yt:_TURAOSM69c",
+  "video:yt:e6MZNH5Z-Mw",
   "video:yt:go9T8OW0wvU",
   "video:yt:oPFBeo-coVk",
   "video:yt:tSwsolEmHoM",
@@ -435,6 +437,16 @@
    "date": "2026-10-09T15:00:01+09:00",
    "key": "show:hk:2026-10-09",
    "mid": 81
+  },
+  {
+   "at": "2026-10-10T10:13:50.935952+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "제청된 것도 아니고 아닌 것도 아닌 대법관 후보자 [한국어CC] 빅토크",
+   "link": "https://www.youtube.com/watch?v=e6MZNH5Z-Mw",
+   "date": "2026-10-10T10:00:15+09:00",
+   "key": "video:yt:e6MZNH5Z-Mw",
+   "mid": 82
   }
  ],
  "tg_offset": 307482611,
