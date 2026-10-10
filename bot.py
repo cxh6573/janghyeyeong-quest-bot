@@ -6,6 +6,7 @@
 사용법
   python bot.py            # 새 소식 확인 후 게시 (기본)
   python bot.py weekly     # 주간 정리 '이번 주 모험담' 게시
+  python bot.py weekly --test   # 주간 정리를 채널 대신 운영자 1:1 대화로 (기록 안 남김)
   python bot.py intro      # 고정 소개글 게시 (처음 1회)
   python bot.py backfill   # 최근 7일치 중 아직 채널에 없는 것 게시 (1회용)
   python bot.py backfill --repost   # 게시 기록과 무관하게 최근 N일치 전부 다시 게시
@@ -904,14 +905,14 @@ def visible_len(h):
     return len(t.encode("utf-16-le")) // 2
 
 
-def send_photo(path, caption, dry, silent=False):
-    """사진 게시. caption이 없으면 사진만. 실패하면 False (주간 정리는 글만이라도 나가게 함)."""
+def send_photo(path, caption, dry, silent=False, chat=None):
+    """사진 게시. caption이 없으면 사진만. 실패하면 False (주간 정리는 글만이라도 나가게 함). chat을 주면 그 대화방으로."""
     if dry:
         print("─" * 40 + f"\n[사진] {os.path.basename(path)}" + (" (알림 없음)" if silent else "")
               + (f"\n{caption}" if caption else ""))
         return True
     token = os.environ["TELEGRAM_TOKEN"]
-    chat = os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest")
+    chat = chat or os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest")
     fields = {"chat_id": chat}
     if caption:
         fields.update(caption=caption, parse_mode="HTML")
@@ -978,7 +979,8 @@ def weekly_dedup(xs):
     return list(out.values())
 
 
-def run_weekly(dry):
+def run_weekly(dry, chat=None):
+    """chat을 주면 채널 대신 그 대화방(운영자 1:1)으로 보내고, 정리 기록(weekly_last)은 남기지 않는다."""
     st = load_state() or {"log": []}
     now = datetime.now(KST)
     start = now - timedelta(days=7)
@@ -1041,17 +1043,17 @@ def run_weekly(dry):
     # 배너: 정리가 짧으면 사진 + 설명글 한 개로, 길면 배너를 알림 없이 먼저 올리고 글을 이어 보냄
     if os.path.exists(WEEKLY_BANNER):
         if len(texts) == 1 and visible_len(texts[0]) <= CAPTION_MAX:
-            if send_photo(WEEKLY_BANNER, texts[0], dry):
+            if send_photo(WEEKLY_BANNER, texts[0], dry, chat=chat):
                 texts = []
         else:
-            send_photo(WEEKLY_BANNER, None, dry, silent=True)
+            send_photo(WEEKLY_BANNER, None, dry, silent=True, chat=chat)
             time.sleep(0 if dry else 2)
     else:
         print(f"[warn] 배너 파일 없음: {WEEKLY_BANNER} (글만 게시)", file=sys.stderr)
     for t in texts:
-        send(t, dry)
+        send(t, dry, chat)
         time.sleep(0 if dry else 3)
-    if not dry:
+    if not dry and not chat:
         for x in st["log"]:
             x.pop("_d", None)
         st["weekly_last"] = now.isoformat()
@@ -1119,6 +1121,10 @@ if __name__ == "__main__":
                    repost="--repost" in args)
     elif "intro" in args:  # 고정 소개글 1회 게시 (Actions 수동 실행 mode=intro)
         send(INTRO, dry)
+    elif "weekly" in args and "--test" in args:  # 주간 정리 미리보기를 운영자 1:1 대화로 (채널·기록에 영향 없음)
+        if not OWNER_ID:
+            sys.exit("TELEGRAM_OWNER가 비어 있어 테스트를 보낼 곳이 없습니다.")
+        run_weekly(dry, chat=OWNER_ID)
     elif "weekly" in args:
         run_weekly(dry)
     else:
