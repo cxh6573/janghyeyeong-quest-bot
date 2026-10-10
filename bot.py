@@ -888,6 +888,72 @@ def run_update(dry, since_days=None, backfill=False, repost=False):
 TITLE_DATE = re.compile(r"(?:\((\d{4})\.)?(\d{1,2})[./](\d{1,2})\s*\([월화수목금토일]\)")
 WEEKLY_BUDGET = 3500  # 메시지 하나의 HTML 원문 길이 상한 (텔레그램 한도 4096자보다 여유 있게)
 
+# 주간 정리 배너와 홍보 꼬리말
+WEEKLY_BANNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "weekly_banner.jpg")
+CAPTION_MAX = 1024  # 사진 설명글 한도 (태그를 뺀 글자 수, UTF-16 기준)
+CHANNEL_URL = "https://t.me/janghyeyeong_quest"
+# 매주 붙는 한 줄
+PROMO_WEEKLY = f"🗡 장혜영의 하찮은 모험담 👉 {CHANNEL_URL}"
+# 격주로 위 한 줄 대신 붙는 공유 요청
+PROMO_SHARE = ("📣 <b>함께 모험할 동료를 찾아요</b>\n"
+               "장혜영 소식이 궁금할 만한 사람에게 이 글을 그대로 전달해 주세요.\n"
+               f"👉 {CHANNEL_URL}")
+PROMO_SHARE_FROM = datetime(2026, 10, 11, tzinfo=KST)  # 이 날짜부터 2주마다 공유 요청판
+
+
+def promo_tail(now):
+    weeks = (now.date() - PROMO_SHARE_FROM.date()).days // 7
+    return PROMO_SHARE if weeks % 2 == 0 else PROMO_WEEKLY
+
+
+def visible_len(h):
+    """HTML 태그를 뺀, 텔레그램이 세는 글자 수 (UTF-16 단위)."""
+    t = html.unescape(re.sub(r"<[^>]+>", "", h))
+    return len(t.encode("utf-16-le")) // 2
+
+
+def send_photo(path, caption, dry, silent=False):
+    """사진 게시. caption이 없으면 사진만. 실패하면 False (주간 정리는 글만이라도 나가게 함)."""
+    if dry:
+        print("─" * 40 + f"\n[사진] {os.path.basename(path)}" + (" (알림 없음)" if silent else "")
+              + (f"\n{caption}" if caption else ""))
+        return True
+    token = os.environ["TELEGRAM_TOKEN"]
+    chat = os.environ.get("TELEGRAM_CHAT", "@janghyeyeong_quest")
+    fields = {"chat_id": chat}
+    if caption:
+        fields.update(caption=caption, parse_mode="HTML")
+    if silent:
+        fields["disable_notification"] = "true"
+    boundary = "----jhyquest" + str(int(time.time() * 1000))
+    body = b""
+    for k, v in fields.items():
+        body += (f"--{boundary}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n").encode()
+    with open(path, "rb") as f:
+        body += (f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; "
+                 f"filename=\"{os.path.basename(path)}\"\r\nContent-Type: image/jpeg\r\n\r\n").encode()
+        body += f.read() + f"\r\n--{boundary}--\r\n".encode()
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendPhoto", data=body,
+                                         headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                res = json.load(r)
+                if res.get("ok"):
+                    return res["result"]["message_id"]
+        except urllib.error.HTTPError as err:
+            msg = err.read().decode(errors="ignore")
+            print(f"[warn] 사진 전송 실패 {err.code}: {msg[:200]}", file=sys.stderr)
+            if err.code == 429:
+                time.sleep(int(re.search(r'"retry_after":(\d+)', msg).group(1)) + 1
+                           if "retry_after" in msg else 30)
+                continue
+            return False
+        except Exception as ex:
+            print(f"[warn] 사진 전송 오류: {ex}", file=sys.stderr)
+        time.sleep(3)
+    return False
+
 
 def log_date(x, now):
     """게시 기록의 원래 날짜. 기록에 없으면 제목의 'M/D(요일)'·'M.D(요일)', 그래도 없으면 게시 시각."""
@@ -954,7 +1020,7 @@ def run_weekly(dry):
                        [f"{ICON[x['kind']]} " + line(x)[2:] for x in sorted(late, key=lambda x: x["_d"])]))
 
     head = f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})"
-    tail = "거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다."
+    tail = "거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다.\n\n" + promo_tail(now)
     msgs, cur = [], [head, ""]
     for title, rows in blocks:
         cur.append(title)
@@ -975,10 +1041,23 @@ def run_weekly(dry):
     if len(msgs) > 1:
         for n, m in enumerate(msgs, 1):
             m[0] = f"{head} ({n}/{len(msgs)})"
+    texts = []
     for m in msgs:
         while m and m[-1] == "":
             m.pop()
-        send("\n".join(m), dry)
+        texts.append("\n".join(m))
+    # 배너: 정리가 짧으면 사진 + 설명글 한 개로, 길면 배너를 알림 없이 먼저 올리고 글을 이어 보냄
+    if os.path.exists(WEEKLY_BANNER):
+        if len(texts) == 1 and visible_len(texts[0]) <= CAPTION_MAX:
+            if send_photo(WEEKLY_BANNER, texts[0], dry):
+                texts = []
+        else:
+            send_photo(WEEKLY_BANNER, None, dry, silent=True)
+            time.sleep(0 if dry else 2)
+    else:
+        print(f"[warn] 배너 파일 없음: {WEEKLY_BANNER} (글만 게시)", file=sys.stderr)
+    for t in texts:
+        send(t, dry)
         time.sleep(0 if dry else 3)
     if not dry:
         for x in st["log"]:
