@@ -889,21 +889,13 @@ TITLE_DATE = re.compile(r"(?:\((\d{4})\.)?(\d{1,2})[./](\d{1,2})\s*\([월화수�
 WEEKLY_BUDGET = 3500  # 메시지 하나의 HTML 원문 길이 상한 (텔레그램 한도 4096자보다 여유 있게)
 
 # 주간 정리 배너와 홍보 꼬리말
-WEEKLY_BANNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "weekly_banner.jpg")
+WEEKLY_BANNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "weekly_banner.jpg")  # bot.py와 같은 위치
 CAPTION_MAX = 1024  # 사진 설명글 한도 (태그를 뺀 글자 수, UTF-16 기준)
 CHANNEL_URL = "https://t.me/janghyeyeong_quest"
-# 매주 붙는 한 줄
-PROMO_WEEKLY = f"🗡 장혜영의 하찮은 모험담 👉 {CHANNEL_URL}"
-# 격주로 위 한 줄 대신 붙는 공유 요청
-PROMO_SHARE = ("📣 <b>함께 모험할 동료를 찾아요</b>\n"
-               "장혜영 소식이 궁금할 만한 사람에게 이 글을 그대로 전달해 주세요.\n"
+# 매주 주간 정리 끝에 붙는 공유 요청
+PROMO_SHARE = ("📣 <i>\"꿈은 동료들과 함께 이루는 것이다.\"</i> — 플람메\n"
+               "이 모험담을 함께 읽을 동료를 찾아요. 장혜영 소식이 궁금할 만한 사람에게 이 글을 그대로 전달해 주세요.\n"
                f"👉 {CHANNEL_URL}")
-PROMO_SHARE_FROM = datetime(2026, 10, 11, tzinfo=KST)  # 이 날짜부터 2주마다 공유 요청판
-
-
-def promo_tail(now):
-    weeks = (now.date() - PROMO_SHARE_FROM.date()).days // 7
-    return PROMO_SHARE if weeks % 2 == 0 else PROMO_WEEKLY
 
 
 def visible_len(h):
@@ -1020,7 +1012,7 @@ def run_weekly(dry):
                        [f"{ICON[x['kind']]} " + line(x)[2:] for x in sorted(late, key=lambda x: x["_d"])]))
 
     head = f"🗓 <b>이번 주 모험담</b> ({start.month}.{start.day}~{now.month}.{now.day})"
-    tail = "거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다.\n\n" + promo_tail(now)
+    tail = "거대한 전투보다 오늘 지킨 작은 일들. 다음 주에도 계속됩니다.\n\n" + PROMO_SHARE
     msgs, cur = [], [head, ""]
     for title, rows in blocks:
         cur.append(title)
