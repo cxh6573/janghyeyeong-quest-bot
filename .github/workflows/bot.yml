@@ -7,7 +7,7 @@ on:
   workflow_dispatch:          # Actions 탭에서 수동 실행
     inputs:
       mode:
-        description: "update / weekly / intro(소개글 1회) / backfill(최근 7일치 1회)"
+        description: "update / weekly / weekly-test(주간 정리를 내 1:1 대화로) / intro(소개글 1회) / backfill(최근 7일치 1회)"
         default: "update"
       days:
         description: "backfill 때 며칠치를 올릴지"
@@ -43,6 +43,8 @@ jobs:
         run: |
           if [ "${{ inputs.mode }}" = "intro" ]; then
             python bot.py intro
+          elif [ "${{ inputs.mode }}" = "weekly-test" ]; then
+            python bot.py weekly --test
           elif [ "${{ inputs.mode }}" = "backfill" ]; then
             if [ "${{ inputs.repost }}" = "yes" ]; then
               python bot.py backfill --since "${{ inputs.days }}" --repost
