@@ -68,8 +68,10 @@
   "manual:facebook:10244458796947682",
   "manual:facebook:10244487683669832",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
+  "news:박원순은아이디어맨칭찬에장혜영성폭력가해",
   "news:장혜영박원순미화발언철회하고피해자에사과",
   "news:장혜영박원순미화비판권력형성폭력잊었나발",
+  "news:장혜영정의당대통령박원순회고에2차가해권",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
   "show:cbs:2026-09-01",
@@ -128,6 +130,7 @@
   "기후위기를위기하지않기위해",
   "내가사는곳에서페미니즘과정치를생각하다",
   "떠나는2030여성죽어가도손놔정책은출산",
+  "박원순은아이디어맨칭찬에장혜영성폭력가해",
   "배우고싶은것을직접만들었다망원정x페미니",
   "벼락출세특혜누가봐도욕심용혜인첫출근앞두",
   "비례두번도실력vs반칙으로얻은의석용혜인",
@@ -153,6 +156,7 @@
   "장혜영위성정당사과해놓고용혜인발탁악어의",
   "장혜영의읽고사니즘",
   "장혜영잘된인사원민경교체의아2030여성",
+  "장혜영정의당대통령박원순회고에2차가해권",
   "정의당용혜인장관지명위성정당반칙에훈장달",
   "정치와여성사이의거리를좁히다",
   "제주서장혜영전의원평등한평범북토크21일",
@@ -471,6 +475,26 @@
    "date": "2026-10-11T18:39:20+09:00",
    "key": "news:장혜영박원순미화발언철회하고피해자에사과",
    "mid": 84
+  },
+  {
+   "at": "2026-10-11T19:12:17.383305+09:00",
+   "kind": "news",
+   "label": "프레시안",
+   "title": "李 \"박원순은 아이디어맨\" 칭찬에 장혜영 \"성폭력 가해자 미화, 피해자에 사과하라\"",
+   "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1wZExDNHpNQi1zeDZqakx0bTlMd01DY25iZDBDMmVRS3g3Y3pnUGJwNjRnaEtnREk3WXNUdnhseEdFdW5NS2syRjZQdjR1Tk5KdV9KNHdVV2l2TDJQVGRJRTBlLWwwdUNfLU5j?oc=5",
+   "date": "2026-10-11T19:00:00+09:00",
+   "key": "news:박원순은아이디어맨칭찬에장혜영성폭력가해",
+   "mid": 85
+  },
+  {
+   "at": "2026-10-11T19:12:20.972921+09:00",
+   "kind": "news",
+   "label": "경기일보",
+   "title": "장혜영·정의당, 李대통령 ‘박원순 회고’에 “2차 가해…권력형 성폭력은 잊을 일인가”",
+   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBscXNzRXZDaUd1T3FXN29aamIyTHhzcWdyalZVdTctc2xVMlVSWS1lanBzcnhDSVExaDg4b0VxaXd6SUd3ZWdITXVDOVh4VG12eUVURmZKakp4ejA?oc=5",
+   "date": "2026-10-11T19:04:07+09:00",
+   "key": "news:장혜영정의당대통령박원순회고에2차가해권",
+   "mid": 86
   }
  ],
  "tg_offset": 307482611,
