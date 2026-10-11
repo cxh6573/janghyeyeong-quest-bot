@@ -69,6 +69,7 @@
   "manual:facebook:10244487683669832",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:박원순은아이디어맨칭찬에장혜영성폭력가해",
+  "news:박원순회고이대통령에안철수한동훈장혜영2",
   "news:장혜영박원순미화발언철회하고피해자에사과",
   "news:장혜영박원순미화비판권력형성폭력잊었나발",
   "news:장혜영정의당대통령박원순회고에2차가해권",
@@ -131,6 +132,7 @@
   "내가사는곳에서페미니즘과정치를생각하다",
   "떠나는2030여성죽어가도손놔정책은출산",
   "박원순은아이디어맨칭찬에장혜영성폭력가해",
+  "박원순회고이대통령에안철수한동훈장혜영2",
   "배우고싶은것을직접만들었다망원정x페미니",
   "벼락출세특혜누가봐도욕심용혜인첫출근앞두",
   "비례두번도실력vs반칙으로얻은의석용혜인",
@@ -495,6 +497,16 @@
    "date": "2026-10-11T19:04:07+09:00",
    "key": "news:장혜영정의당대통령박원순회고에2차가해권",
    "mid": 86
+  },
+  {
+   "at": "2026-10-11T19:31:06.009815+09:00",
+   "kind": "news",
+   "label": "부산일보",
+   "title": "`故박원순 회고` 이 대통령에 안철수·한동훈·장혜영 `2차 가해`",
+   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBmVTd3VDhVQ1pkUmZwZmY2amVIWXdCRmpsTFhkcktIS0FiTTEyVnhHdkxQZW9zNlp5ZmxvY3QtbHFNZms2MEt3Q3RLUmZYZFVXQjR6czUwV1RfOUJfRk1HNmFxYXBoQ0ZBa1Jrc0d5aDhoMVQtdTRYT3FFU1k?oc=5",
+   "date": "2026-10-11T19:02:31+09:00",
+   "key": "news:박원순회고이대통령에안철수한동훈장혜영2",
+   "mid": 87
   }
  ],
  "tg_offset": 307482611,
