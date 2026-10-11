@@ -72,6 +72,8 @@
   "news:박원순회고이대통령에안철수한동훈장혜영2",
   "news:장혜영박원순미화발언철회하고피해자에사과",
   "news:장혜영박원순미화비판권력형성폭력잊었나발",
+  "news:장혜영이재명박원순회고비판철회사과요구",
+  "news:장혜영이재명에박원순언급철회사과요구",
   "news:장혜영정의당대통령박원순회고에2차가해권",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
@@ -157,6 +159,8 @@
   "장혜영용혜인에반칙으로의원되고국민들이이",
   "장혜영위성정당사과해놓고용혜인발탁악어의",
   "장혜영의읽고사니즘",
+  "장혜영이재명박원순회고비판철회사과요구",
+  "장혜영이재명에박원순언급철회사과요구",
   "장혜영잘된인사원민경교체의아2030여성",
   "장혜영정의당대통령박원순회고에2차가해권",
   "정의당용혜인장관지명위성정당반칙에훈장달",
@@ -507,6 +511,26 @@
    "date": "2026-10-11T19:02:31+09:00",
    "key": "news:박원순회고이대통령에안철수한동훈장혜영2",
    "mid": 87
+  },
+  {
+   "at": "2026-10-12T01:57:51.578453+09:00",
+   "kind": "news",
+   "label": "비건뉴스",
+   "title": "장혜영, 이재명에 박원순 언급 철회·사과 요구",
+   "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFA0WmQ5LUZZUnk2X0YzUUxtMHdzZG55VEdLSExHZXZkRnR0bHFKOVFFOW9XYUM5ZkVFUFhxU0tjZ3ZBeEhYWGVpenQ2N0ExX3hhQW9MYnhCMWR5X1BTTk5LeG1CcUoxdw?oc=5",
+   "date": "2026-10-12T01:39:51+09:00",
+   "key": "news:장혜영이재명에박원순언급철회사과요구",
+   "mid": 91
+  },
+  {
+   "at": "2026-10-12T01:57:55.297902+09:00",
+   "kind": "news",
+   "label": "제주교통복지신문",
+   "title": "장혜영, 이재명 박원순 회고 비판…철회·사과 요구",
+   "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5tOV9QSFZGbU5ha1V0MEMyZllWSFZodnltRW1JU190Tmd2eTcxSWw1TE51aVV2RGpZSk54WVdEQTQ2cVFzdWNIeXgxN3pMbHRjcXN3eWk0N0NKRFJZRDdueg?oc=5",
+   "date": "2026-10-12T01:47:49+09:00",
+   "key": "news:장혜영이재명박원순회고비판철회사과요구",
+   "mid": 92
   }
  ],
  "tg_offset": 307482614,
