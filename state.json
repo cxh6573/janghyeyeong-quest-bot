@@ -59,6 +59,7 @@
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:4YPraauI4bQ",
   "link:yt:Be6fXx7DBYs",
+  "link:yt:Wk3J711adSc",
   "link:yt:bWy6Q2BuIaQ",
   "link:yt:e6MZNH5Z-Mw",
   "link:yt:jQ-YN2Oh0g0",
@@ -119,6 +120,7 @@
   "video:yt:V8uKcRo6J8Y",
   "video:yt:VSjTd_2pwaQ",
   "video:yt:WeIov7fcchc",
+  "video:yt:Wk3J711adSc",
   "video:yt:YmzxYv3yns0",
   "video:yt:ZfPgZKywYtA",
   "video:yt:_TURAOSM69c",
@@ -543,6 +545,16 @@
    "date": null,
    "key": "manual:facebook:10244559007132874",
    "mid": 93
+  },
+  {
+   "at": "2026-10-13T08:16:09.679588+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "슈뢰딩거의 손봉기,  청와대 vs 조희대 상황 정리",
+   "link": "https://www.youtube.com/watch?v=Wk3J711adSc",
+   "date": "2026-10-13T08:01:21+09:00",
+   "key": "video:yt:Wk3J711adSc",
+   "mid": 94
   }
  ],
  "tg_offset": 307482615,
