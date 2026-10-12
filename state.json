@@ -50,6 +50,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid029G5iRtEsFix21ZRzthLsrXUhGrecXfsK6eodsXBgAmrF3qiDR2rHSbCSjHycXKVzl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
@@ -67,6 +68,7 @@
   "manual:facebook:10244424907220460",
   "manual:facebook:10244458796947682",
   "manual:facebook:10244487683669832",
+  "manual:facebook:10244559007132874",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:박원순은아이디어맨칭찬에장혜영성폭력가해",
   "news:박원순회고이대통령에안철수한동훈장혜영2",
@@ -531,14 +533,25 @@
    "date": "2026-10-12T01:47:49+09:00",
    "key": "news:장혜영이재명박원순회고비판철회사과요구",
    "mid": 92
+  },
+  {
+   "at": "2026-10-12T09:56:55.827425+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "이재명 대통령은 권력형 성폭력 가해자 고 박원순 서울시장을 미화하는 발언을 철회하고 피해자에게 사과하라\n\n이재명 대통령이 고 박원순 전 서울시장을 “뛰어난 아이디어맨” “SNS의 중요성을 일깨워주신 분”으로 추켜세웠습니다. 그러나 박 전 서울시장은 자신의 비서를 성추행한 권력형 성폭력 가해자입니다.\n\n이재명 대통령이 박 전 시장을 개인적으로 어떻게...",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid029G5iRtEsFix21ZRzthLsrXUhGrecXfsK6eodsXBgAmrF3qiDR2rHSbCSjHycXKVzl",
+   "date": null,
+   "key": "manual:facebook:10244559007132874",
+   "mid": 93
   }
  ],
- "tg_offset": 307482614,
+ "tg_offset": 307482615,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
   "manual:facebook:10244458796947682",
   "manual:facebook:10244487683669832",
+  "manual:facebook:10244559007132874",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ],
  "deleted": [
