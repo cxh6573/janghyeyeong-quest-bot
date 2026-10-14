@@ -1,5 +1,6 @@
 {
  "seen": [
+  "home:https://mangwonjeongx.org/archive/?idx=175096125&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=174824055&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=174906307&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630720&bmode=view",
@@ -567,6 +568,16 @@
    "date": "2026-10-13T10:39:38+09:00",
    "key": "video:yt:mjsgBuLNs7Y",
    "mid": 95
+  },
+  {
+   "at": "2026-10-14T17:25:20.442930+09:00",
+   "kind": "home",
+   "label": "망원정x",
+   "title": "10월 상영작 안내 : 로버트, 우리가 사랑한 케네디",
+   "link": "https://mangwonjeongx.org/archive/?idx=175096125&bmode=view",
+   "date": "2026-10-14T17:00:00+09:00",
+   "key": "home:https://mangwonjeongx.org/archive/?idx=175096125&bmode=view",
+   "mid": 96
   }
  ],
  "tg_offset": 307482615,
