@@ -51,6 +51,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/09/20260923-1790553624414.mp3?vod_id=C0000010545&podcast_id=P0000004853",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
+  "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261014-1792021849933.mp3?vod_id=C0000010545&podcast_id=P0000004876",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid029G5iRtEsFix21ZRzthLsrXUhGrecXfsK6eodsXBgAmrF3qiDR2rHSbCSjHycXKVzl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
@@ -104,6 +105,7 @@
   "show:cpbc:2026-09-23",
   "show:cpbc:2026-09-30",
   "show:cpbc:2026-10-07",
+  "show:cpbc:2026-10-14",
   "show:hk:2026-10-08",
   "show:hk:2026-10-09",
   "show:jtbc:2026-09-22",
@@ -614,6 +616,16 @@
    "date": "2026-10-14T22:35:25+09:00",
    "key": "video:yt:4hk17IXfqeY",
    "mid": 99
+  },
+  {
+   "at": "2026-10-15T09:00:49.267583+09:00",
+   "kind": "show",
+   "label": "cpbc 김준일의 시사천국",
+   "title": "10/14(수) [김수민·장혜영·문성호] 임광현 비서실장 깜짝 발탁에 엇갈린 해석…李대통령, 왜?",
+   "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261014-1792021849933.mp3?vod_id=C0000010545&podcast_id=P0000004876",
+   "date": "2026-10-14T08:50:50+09:00",
+   "key": "show:cpbc:2026-10-14",
+   "mid": 100
   }
  ],
  "tg_offset": 307482615,
