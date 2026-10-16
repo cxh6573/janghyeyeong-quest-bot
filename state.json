@@ -66,6 +66,7 @@
   "link:yt:Ukkl1UK_tNc",
   "link:yt:Wk3J711adSc",
   "link:yt:bWy6Q2BuIaQ",
+  "link:yt:d-mQw_z50JM",
   "link:yt:e6MZNH5Z-Mw",
   "link:yt:jQ-YN2Oh0g0",
   "link:yt:mjsgBuLNs7Y",
@@ -89,6 +90,7 @@
   "show:cbs:2026-09-01",
   "show:cbs:2026-09-19",
   "show:cbs:2026-10-03",
+  "show:cbs:2026-10-17",
   "show:cpbc:2020-02-10",
   "show:cpbc:2024-07-26",
   "show:cpbc:2026-04-30",
@@ -626,6 +628,16 @@
    "date": "2026-10-14T08:50:50+09:00",
    "key": "show:cpbc:2026-10-14",
    "mid": 100
+  },
+  {
+   "at": "2026-10-17T06:56:16.351402+09:00",
+   "kind": "show",
+   "label": "CBS 주말뉴스쇼",
+   "title": "[🔴 주말뉴스쇼] 1부 | 후티 반군, 사우디 아람코 본사까지 공격 (조윤주 외신캐스터)",
+   "link": "https://www.youtube.com/watch?v=d-mQw_z50JM",
+   "date": "2026-10-17T06:54:44+09:00",
+   "key": "show:cbs:2026-10-17",
+   "mid": 101
   }
  ],
  "tg_offset": 307482615,
