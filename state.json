@@ -58,6 +58,7 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
+  "link:yt:1JtoCBBpo-8",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:4YPraauI4bQ",
   "link:yt:4hk17IXfqeY",
@@ -114,6 +115,7 @@
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
   "show:sbs:2026-10-08",
+  "video:yt:1JtoCBBpo-8",
   "video:yt:4hk17IXfqeY",
   "video:yt:8UmGErgjiTM",
   "video:yt:9X5yNumMJPs",
@@ -638,6 +640,16 @@
    "date": "2026-10-17T06:54:44+09:00",
    "key": "show:cbs:2026-10-17",
    "mid": 101
+  },
+  {
+   "at": "2026-10-17T10:08:51.125020+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "추미애가 이재명 정부와 싸우는 이유 [한국어CC] 빅토크",
+   "link": "https://www.youtube.com/watch?v=1JtoCBBpo-8",
+   "date": "2026-10-17T10:00:35+09:00",
+   "key": "video:yt:1JtoCBBpo-8",
+   "mid": 102
   }
  ],
  "tg_offset": 307482615,
