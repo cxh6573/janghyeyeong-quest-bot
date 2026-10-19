@@ -84,6 +84,11 @@ NEWS_URL = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(NEWS_QU
 NEWS_EXCLUDE_SOURCES = ("브런치", "네이트", "v.daum.net", "다음", "네이버 블로그", "티스토리",
                         "public25.com")
 NEWS_EXCLUDE_WORDS = ("[부고]", "[인사]", "부고", "모친상", "부친상", "장모상", "빙부상")
+# 동명이인 검사 (장혜영 수원광역공소청장 직무대리 등, 2026-10-19). 이름 바로 앞뒤에 직함이 붙은 제목만 거른다.
+# 장혜영 전 의원이 검찰·공소청을 논평하는 기사("장혜영 '검사 독재'…")는 따옴표가 끼어 걸리지 않는다.
+PROSECUTOR_TITLES = r"(?:공소청장|공소청|직무대리|검사장|지검장|고검장|지청장|차장검사|부장검사|검사)"
+NEWS_EXCLUDE_NAMESAKE = re.compile(r"장혜영\s*[가-힣]*" + PROSECUTOR_TITLES
+                                   + r"|" + PROSECUTOR_TITLES + r"\s*장혜영")
 
 # 직접 찾은 소식: 자동으로 못 잡는 글(인스타 등)을 사람이 적어 두면 봇이 게시한다.
 MANUAL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "manual.yml")
@@ -673,7 +678,8 @@ def collect():
         src = e["source"] or (t.rsplit(" - ", 1)[1] if " - " in t else "")
         if NAME not in t:
             continue
-        if any(x in src for x in NEWS_EXCLUDE_SOURCES) or any(w in t for w in NEWS_EXCLUDE_WORDS):
+        if any(x in src for x in NEWS_EXCLUDE_SOURCES) or any(w in t for w in NEWS_EXCLUDE_WORDS) \
+                or NEWS_EXCLUDE_NAMESAKE.search(t):
             continue
         title = t.rsplit(" - ", 1)[0] if " - " in t else t
         items.append({"key": f"news:{norm(t)}", "kind": "news", "label": src or "언론 보도",
