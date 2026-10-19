@@ -678,29 +678,9 @@
    "date": "2026-10-18T19:31:36+09:00",
    "key": "video:yt:KXWXGO9iQHs",
    "mid": 104
-  },
-  {
-   "at": "2026-10-19T12:13:17.520009+09:00",
-   "kind": "news",
-   "label": "뉴시스",
-   "title": "업무보고 하는 장혜영 수원광역공소청장 직무대리",
-   "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1BS280dUtLU25UYk44aU9ualkyV2dVVEtNR0ZlTmlLSHFVcDkwRlNxV2gwMWx0ckZScFg5LTFEajNoTjBLYUEtOHJUNXBXZVcyMjRMVDNGa0xUT25HdDBWUg?oc=5",
-   "date": "2026-10-19T11:43:44+09:00",
-   "key": "news:업무보고하는장혜영수원광역공소청장직무대",
-   "mid": 106
-  },
-  {
-   "at": "2026-10-19T12:13:21.193272+09:00",
-   "kind": "news",
-   "label": "더팩트",
-   "title": "대화 나누는 정용환-장혜영 공소청장 직무대리 [포토]",
-   "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE44eE1GS1RwbzB2ZHRTVF84eHl3TlllaHg1Z3huVWNwcmdmQlVScmVvcU1rM3BRMlc2dllBcHZDTzB3S1ZROVZNSkFsaWRjYjNsRUhLUWk4RmYxMzBEeWfSAVhBVV95cUxQN0J3dkYyWkE4VTFtVVlQUm00NERIMjFrS3ZwdzRVVnpNcjVFNzNjc21ucHc2UHl0Z0dJVWkwZGFWbXVQTDlMWjlhbTJfcVVkaVl6c1N1cDQ5?oc=5",
-   "date": "2026-10-19T12:01:05+09:00",
-   "key": "news:대화나누는정용환장혜영공소청장직무대리포",
-   "mid": 107
   }
  ],
- "tg_offset": 307482615,
+ "tg_offset": 307482617,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
@@ -753,6 +733,14 @@
   {
    "link": "https://www.youtube.com/watch?v=HxQTszQ2jZQ",
    "at": "2026-10-06T10:34:50.620022+09:00"
+  },
+  {
+   "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1BS280dUtLU25UYk44aU9ualkyV2dVVEtNR0ZlTmlLSHFVcDkwRlNxV2gwMWx0ckZScFg5LTFEajNoTjBLYUEtOHJUNXBXZVcyMjRMVDNGa0xUT25HdDBWUg?oc=5",
+   "at": "2026-10-19T12:13:17.520009+09:00"
+  },
+  {
+   "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE44eE1GS1RwbzB2ZHRTVF84eHl3TlllaHg1Z3huVWNwcmdmQlVScmVvcU1rM3BRMlc2dllBcHZDTzB3S1ZROVZNSkFsaWRjYjNsRUhLUWk4RmYxMzBEeWfSAVhBVV95cUxQN0J3dkYyWkE4VTFtVVlQUm00NERIMjFrS3ZwdzRVVnpNcjVFNzNjc21ucHc2UHl0Z0dJVWkwZGFWbXVQTDlMWjlhbTJfcVVkaVl6c1N1cDQ5?oc=5",
+   "at": "2026-10-19T12:13:21.193272+09:00"
   }
  ],
  "weekly_last": "2026-10-18T20:16:45.235441+09:00"
