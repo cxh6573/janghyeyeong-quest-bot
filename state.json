@@ -77,6 +77,7 @@
   "link:yt:jQ-YN2Oh0g0",
   "link:yt:kMnaPQbA9c4",
   "link:yt:mjsgBuLNs7Y",
+  "link:yt:qDcgK1QYb4Q",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
   "manual:facebook:10232576611540473",
@@ -156,6 +157,7 @@
   "video:yt:kMnaPQbA9c4",
   "video:yt:mjsgBuLNs7Y",
   "video:yt:oPFBeo-coVk",
+  "video:yt:qDcgK1QYb4Q",
   "video:yt:tSwsolEmHoM",
   "video:yt:u6oUcOfyyvI",
   "video:yt:u_UK4SvGACc",
@@ -726,6 +728,16 @@
    "date": null,
    "key": "manual:facebook:10244769387792259",
    "mid": 111
+  },
+  {
+   "at": "2026-10-22T23:07:55.166138+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "한동훈 딸 허위 스펙 논란, 단 한 사람은 입 다물어야",
+   "link": "https://www.youtube.com/watch?v=qDcgK1QYb4Q",
+   "date": "2026-10-22T22:35:54+09:00",
+   "key": "video:yt:qDcgK1QYb4Q",
+   "mid": 112
   }
  ],
  "tg_offset": 307482622,
