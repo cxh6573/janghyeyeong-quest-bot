@@ -61,6 +61,7 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0xoeFW4EUFfouNKEcJULRqMdCa6Pe2LdW7CWr7WA1Mpd2pG2DohNDXrnVVo39wf6Bl",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
+  "link:yt:-4iR3EInOKM",
   "link:yt:1JtoCBBpo-8",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:4YPraauI4bQ",
@@ -127,6 +128,7 @@
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
   "show:sbs:2026-10-08",
+  "video:yt:-4iR3EInOKM",
   "video:yt:1JtoCBBpo-8",
   "video:yt:4hk17IXfqeY",
   "video:yt:8UmGErgjiTM",
@@ -738,6 +740,16 @@
    "date": "2026-10-22T22:35:54+09:00",
    "key": "video:yt:qDcgK1QYb4Q",
    "mid": 112
+  },
+  {
+   "at": "2026-10-24T15:09:59.595367+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "프랑스 학생들이 거리로 나온 진짜 이유와 오늘의 한국",
+   "link": "https://www.youtube.com/watch?v=-4iR3EInOKM",
+   "date": "2026-10-24T14:58:06+09:00",
+   "key": "video:yt:-4iR3EInOKM",
+   "mid": 113
   }
  ],
  "tg_offset": 307482622,
