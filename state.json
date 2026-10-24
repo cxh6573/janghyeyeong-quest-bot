@@ -57,6 +57,7 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0323bKqdESYbLsUVtoy8jWKBUJMN1PnVVY8wYg3eDKT1mXr9uDQXuUx8nqqsnsrnKBl",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid036ZUrR2vbp39sXS62C4DPG9Hcmswmcq6UK3hFTVRHPoS7HJf17dCYxCUWfWYi54ghl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0xoeFW4EUFfouNKEcJULRqMdCa6Pe2LdW7CWr7WA1Mpd2pG2DohNDXrnVVo39wf6Bl",
@@ -89,6 +90,7 @@
   "manual:facebook:10244763722370627",
   "manual:facebook:10244763779452054",
   "manual:facebook:10244769387792259",
+  "manual:facebook:10244836891559811",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:대화나누는정용환장혜영공소청장직무대리포",
   "news:박원순은아이디어맨칭찬에장혜영성폭력가해",
@@ -750,9 +752,19 @@
    "date": "2026-10-24T14:58:06+09:00",
    "key": "video:yt:-4iR3EInOKM",
    "mid": 113
+  },
+  {
+   "at": "2026-10-24T15:15:54.326739+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "지난 여름 방콕에서 열린 세계의 여성 정치인, 정치 활동가들과 함께한 회합을 요약한 기록 영상이 나왔네요. (뒷부분쯤 제가 나옵니다☺️)\n\n이 회합의 중요한 세션은 여성 정치인을 상대로 한 온오프라인의 폭력을 어떻게 다뤄야하는지를 함께 토론하는 것입니다.\n\n정치에 몸담은 여성들은 다양한 젠더폭력을 마주하지만, 그 사실을 이야기하기를 꺼립니다. 그 말은 곧...",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid036ZUrR2vbp39sXS62C4DPG9Hcmswmcq6UK3hFTVRHPoS7HJf17dCYxCUWfWYi54ghl",
+   "date": null,
+   "key": "manual:facebook:10244836891559811",
+   "mid": 114
   }
  ],
- "tg_offset": 307482623,
+ "tg_offset": 307482624,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
@@ -762,6 +774,7 @@
   "manual:facebook:10244763722370627",
   "manual:facebook:10244763779452054",
   "manual:facebook:10244769387792259",
+  "manual:facebook:10244836891559811",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ],
  "deleted": [
