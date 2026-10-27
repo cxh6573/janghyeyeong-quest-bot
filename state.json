@@ -70,6 +70,7 @@
   "link:yt:Be6fXx7DBYs",
   "link:yt:GVpyykNrtko",
   "link:yt:KXWXGO9iQHs",
+  "link:yt:NV1lrRQ9P2A",
   "link:yt:Ukkl1UK_tNc",
   "link:yt:Wk3J711adSc",
   "link:yt:X4Tv_CL2ipU",
@@ -145,6 +146,7 @@
   "video:yt:HxQTszQ2jZQ",
   "video:yt:K4TMH7jljyY",
   "video:yt:KXWXGO9iQHs",
+  "video:yt:NV1lrRQ9P2A",
   "video:yt:OeHJp5a0ic0",
   "video:yt:RxO4If441a0",
   "video:yt:U9Kw3LovkjQ",
@@ -774,6 +776,16 @@
    "date": "2026-10-25T07:00:00+09:00",
    "key": "news:대통령은SNS를끄고피해자의책을읽으시라",
    "mid": 115
+  },
+  {
+   "at": "2026-10-27T15:01:28.564054+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "태국의 여성 정치인 쿤티다 릉루엥키앗 (Kunthida Rungruengkiat) 전 전진당 부대표 전격 인터뷰",
+   "link": "https://www.youtube.com/watch?v=NV1lrRQ9P2A",
+   "date": "2026-10-27T14:38:35+09:00",
+   "key": "video:yt:NV1lrRQ9P2A",
+   "mid": 117
   }
  ],
  "tg_offset": 307482624,
