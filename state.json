@@ -52,6 +52,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20260930-1790811709964.mp3?vod_id=C0000010545&podcast_id=P0000004860",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261014-1792021849933.mp3?vod_id=C0000010545&podcast_id=P0000004876",
+  "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261028_3-1793235036399.mp3?vod_id=C0000010545&podcast_id=P0000004897",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid021qMysPEwqbmgz1UZfqc5w8vycqEYUQ1kBwT2mVN8ZikeURSwuXBjZ662FU1YTd3Ml",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid029G5iRtEsFix21ZRzthLsrXUhGrecXfsK6eodsXBgAmrF3qiDR2rHSbCSjHycXKVzl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
@@ -126,6 +127,7 @@
   "show:cpbc:2026-09-30",
   "show:cpbc:2026-10-07",
   "show:cpbc:2026-10-14",
+  "show:cpbc:2026-10-28",
   "show:hk:2026-10-08",
   "show:hk:2026-10-09",
   "show:jtbc:2026-09-22",
@@ -786,6 +788,16 @@
    "date": "2026-10-27T14:38:35+09:00",
    "key": "video:yt:NV1lrRQ9P2A",
    "mid": 117
+  },
+  {
+   "at": "2026-10-29T10:06:23.886203+09:00",
+   "kind": "show",
+   "label": "cpbc 김준일의 시사천국",
+   "title": "10/28(수) [문성호·장혜영·김수민] 대통령의 SNS는 소통인가 압박인가…'외국인 노동자' 발언 후폭풍",
+   "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261028_3-1793235036399.mp3?vod_id=C0000010545&podcast_id=P0000004897",
+   "date": "2026-10-28T09:50:37+09:00",
+   "key": "show:cpbc:2026-10-28",
+   "mid": 118
   }
  ],
  "tg_offset": 307482624,
