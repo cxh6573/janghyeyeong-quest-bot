@@ -65,6 +65,7 @@
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "link:yt:-4iR3EInOKM",
   "link:yt:1JtoCBBpo-8",
+  "link:yt:1tWvxrLYoTo",
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:4YPraauI4bQ",
   "link:yt:4hk17IXfqeY",
@@ -110,6 +111,7 @@
   "show:cbs:2026-09-19",
   "show:cbs:2026-10-03",
   "show:cbs:2026-10-17",
+  "show:cbs:2026-10-31",
   "show:cpbc:2020-02-10",
   "show:cpbc:2024-07-26",
   "show:cpbc:2026-04-30",
@@ -798,6 +800,16 @@
    "date": "2026-10-28T09:50:37+09:00",
    "key": "show:cpbc:2026-10-28",
    "mid": 118
+  },
+  {
+   "at": "2026-10-31T06:46:39.181974+09:00",
+   "kind": "show",
+   "label": "CBS 주말뉴스쇼",
+   "title": "[🔴 주말뉴스쇼] 1부 | 대선패해 후 야반도주한 보우소나루, 왜? (조윤주 외신캐스터)",
+   "link": "https://www.youtube.com/watch?v=1tWvxrLYoTo",
+   "date": "2026-10-31T05:30:45+09:00",
+   "key": "show:cbs:2026-10-31",
+   "mid": 119
   }
  ],
  "tg_offset": 307482624,
