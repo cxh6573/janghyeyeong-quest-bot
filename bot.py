@@ -76,13 +76,16 @@ HOMEPAGE_SHOW_PREFIX = {
 HOMEPAGE_RSS = "https://mangwonjeongx.org/rss"
 JHY_YOUTUBE = YT + "UCGdB-lgTS2sOhJIxgP550qw"
 
-# 뉴스: 동명이인을 줄이기 위해 정치 맥락 단어를 함께 검색하고, 제목에 이름이 있는 기사만 쓴다.
+# 뉴스: 동명이인을 줄이기 위해 정치 맥락 단어를 함께 검색하고, 제목에 이름이 있는 기사만 쓴다 (시사주간지는 예외, 아래).
 NEWS_QUERY = '"장혜영" (의원 OR 정의당 OR 망원정 OR 진보 OR 정치) when:2d'
 NEWS_URL = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(NEWS_QUERY)
             + "&hl=ko&gl=KR&ceid=KR:ko")
 # 블로그·포털 재게시는 제외 (원 매체 기사만)
 NEWS_EXCLUDE_SOURCES = ("브런치", "네이트", "v.daum.net", "다음", "네이버 블로그", "티스토리",
                         "public25.com")
+# 시사주간지 인터뷰는 제목에 인용문만 쓰고 이름은 부제에 넣는 경우가 많다 (한겨레21 기사 60087, 2026-10-22 출고).
+# 이 매체들은 제목에 이름이 없어도 검색어('"장혜영"'+정치 맥락 단어)에 걸리면 게시한다. 출처 이름이 정확히 같아야 한다.
+NEWS_TRUSTED_WEEKLIES = {"한겨레21", "시사IN", "시사인", "주간경향", "시사저널"}
 NEWS_EXCLUDE_WORDS = ("[부고]", "[인사]", "부고", "모친상", "부친상", "장모상", "빙부상")
 # 동명이인 검사 (장혜영 수원광역공소청장 직무대리 등, 2026-10-19). 이름 바로 앞뒤에 직함이 붙은 제목만 거른다.
 # 장혜영 전 의원이 검찰·공소청을 논평하는 기사("장혜영 '검사 독재'…")는 따옴표가 끼어 걸리지 않는다.
@@ -676,7 +679,7 @@ def collect():
     for e in parse_feed(NEWS_URL):
         t = html.unescape(e["title"])
         src = e["source"] or (t.rsplit(" - ", 1)[1] if " - " in t else "")
-        if NAME not in t:
+        if NAME not in t and src not in NEWS_TRUSTED_WEEKLIES:
             continue
         if any(x in src for x in NEWS_EXCLUDE_SOURCES) or any(w in t for w in NEWS_EXCLUDE_WORDS) \
                 or NEWS_EXCLUDE_NAMESAKE.search(t):
