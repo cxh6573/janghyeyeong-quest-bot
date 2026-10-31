@@ -35,6 +35,7 @@
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174906467&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174906478&bmode=view",
   "home:https://mangwonjeongx.org/notice/?idx=174824104&bmode=view",
+  "link:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000010545_f9f70ae26bf3e96e9eaed0fded7141f3-1671709945965.mp3?vod_id=C0000010545&podcast_id=P0000000166",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2024/07/20240726-1722209366415.mp3?vod_id=C0000010545&podcast_id=P0000003727",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/05/20260430_1-1778113673078.mp3?vod_id=C0000010545&podcast_id=P0000004668",
@@ -59,8 +60,11 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02xEYY5fQz6Lox7PLh3wtpKrfEVEGjS3z9QEXtLGvWWiyvsSB868n2uEVq9TcqunhWl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0323bKqdESYbLsUVtoy8jWKBUJMN1PnVVY8wYg3eDKT1mXr9uDQXuUx8nqqsnsrnKBl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid036ZUrR2vbp39sXS62C4DPG9Hcmswmcq6UK3hFTVRHPoS7HJf17dCYxCUWfWYi54ghl",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0GkK7onxTsYbyey2ibN1uRCXxZ9Le9qWgQTJ2DjCWpzpdW6F42dFkjKmgRCX4qrfal",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0M63RAwcymEkwM8qsu7X8oxKJyVAg3WFuXhzNoCAE3kMVu9uuQ21Xx7ufTFhzCBGbl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0pCLhQkYHVyseAxSJg4Qgr4NjwcT7g3iv4xLqMeFtaxjSB9DsWg4ga4MCHDqbxFkPl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0xoeFW4EUFfouNKEcJULRqMdCa6Pe2LdW7CWr7WA1Mpd2pG2DohNDXrnVVo39wf6Bl",
   "link:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "link:yt:-4iR3EInOKM",
@@ -94,6 +98,10 @@
   "manual:facebook:10244763779452054",
   "manual:facebook:10244769387792259",
   "manual:facebook:10244836891559811",
+  "manual:facebook:10244970703785033",
+  "manual:facebook:10245003602487480",
+  "manual:facebook:10245004593592257",
+  "manual:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:대통령은SNS를끄고피해자의책을읽으시라",
   "news:대화나누는정용환장혜영공소청장직무대리포",
@@ -810,9 +818,49 @@
    "date": "2026-10-31T05:30:45+09:00",
    "key": "show:cbs:2026-10-31",
    "mid": 119
+  },
+  {
+   "at": "2026-10-31T10:36:03.936519+09:00",
+   "kind": "news",
+   "label": "한겨레21",
+   "title": "“성평등 안 되면 민주주의 아니라고 말하는 정치세력이 하나쯤 있어야”",
+   "link": "https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
+   "date": null,
+   "key": "manual:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
+   "mid": 121
+  },
+  {
+   "at": "2026-10-31T10:36:08.072996+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "민주주의를 위한 청년 세대의 움직임은 유럽에만 있는 것이 아닙니다. 동남아시아 지역의 다양한 국가들에서도 청년들이 더 공정하고 투명하며 포용적인 민주주의를 위해 치열한 싸움을 벌이고 있습니다.\n\n말레이시아 최초의 청년 주도 민주주의 정당으로 설립된 MUDA(말레이시아 연합 민주 동맹, Malaysian United Democratic Alliance)도...",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0pCLhQkYHVyseAxSJg4Qgr4NjwcT7g3iv4xLqMeFtaxjSB9DsWg4ga4MCHDqbxFkPl",
+   "date": null,
+   "key": "manual:facebook:10245004593592257",
+   "mid": 122
+  },
+  {
+   "at": "2026-10-31T10:36:12.400041+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "국민의힘-민주당 적대적 공생관계가 반복될수록 민주당은 한없이 국민의힘화하고 진영을 그걸 어떻게든 미화하고 차별화하려 안간힘을 쓴다. 국민의힘은 그런 민주당과 다르기 위해 점점 더 민주주의 밖으로 나아간다.\n\n이 악순환을 반드시 돌파해야 민주주의의 미래고 뭐고 말할 수 있다.",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0GkK7onxTsYbyey2ibN1uRCXxZ9Le9qWgQTJ2DjCWpzpdW6F42dFkjKmgRCX4qrfal",
+   "date": null,
+   "key": "manual:facebook:10245003602487480",
+   "mid": 123
+  },
+  {
+   "at": "2026-10-31T10:36:16.767849+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "현실에도 맞지 않는 이주노동자 차별 혐오 발언을 정정하고 사과해야 할 것은 이재명 대통령이다. \n\n그런 대통령이 특정 언론을 상대로 빨간펜을 긋고 있다.\n\n이런 언행이야말로 아무 짝에도 도움이 안 된다는 것을 대통령의 참모 중 누구도 말해줄 이가 없나. 신임 비서실장은 뭘 하고 있나. \n\n“적절하지 않은 말 했지 않느냐, 잘못했다고 해야지” \n\n“국민도...",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0M63RAwcymEkwM8qsu7X8oxKJyVAg3WFuXhzNoCAE3kMVu9uuQ21Xx7ufTFhzCBGbl",
+   "date": null,
+   "key": "manual:facebook:10244970703785033",
+   "mid": 124
   }
  ],
- "tg_offset": 307482624,
+ "tg_offset": 307482627,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
@@ -823,6 +871,10 @@
   "manual:facebook:10244763779452054",
   "manual:facebook:10244769387792259",
   "manual:facebook:10244836891559811",
+  "manual:facebook:10244970703785033",
+  "manual:facebook:10245003602487480",
+  "manual:facebook:10245004593592257",
+  "manual:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ],
  "deleted": [
