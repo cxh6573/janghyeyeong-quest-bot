@@ -3,6 +3,7 @@
   "home:https://mangwonjeongx.org/archive/?idx=175096125&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=174824055&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=174906307&bmode=view",
+  "home:https://mangwonjeongx.org/article/?idx=175380441&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630720&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630764&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630822&bmode=view",
@@ -894,6 +895,16 @@
    "date": "2026-11-01T18:04:00+09:00",
    "key": "news:청년정치누구때문에망했다손쉬운비판넘어",
    "mid": 127
+  },
+  {
+   "at": "2026-11-02T14:40:49.016632+09:00",
+   "kind": "home",
+   "label": "망원정x",
+   "title": "2026년 10월의 활동소식을 전해드립니다 ✨",
+   "link": "https://mangwonjeongx.org/article/?idx=175380441&bmode=view",
+   "date": "2026-11-02T13:54:25+09:00",
+   "key": "home:https://mangwonjeongx.org/article/?idx=175380441&bmode=view",
+   "mid": 129
   }
  ],
  "tg_offset": 307482627,
