@@ -4,6 +4,7 @@
   "home:https://mangwonjeongx.org/article/?idx=174824055&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=174906307&bmode=view",
   "home:https://mangwonjeongx.org/article/?idx=175380441&bmode=view",
+  "home:https://mangwonjeongx.org/article/?idx=175418555&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630720&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630764&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174630822&bmode=view",
@@ -917,6 +918,16 @@
    "date": "2026-11-03T15:55:47+09:00",
    "key": "video:yt:_rYKTBbg26w",
    "mid": 130
+  },
+  {
+   "at": "2026-11-04T13:25:49.026413+09:00",
+   "kind": "home",
+   "label": "망원정x",
+   "title": "[망원정담#24] \"씩씩하게 살아가는 것으로서의 페미니즘\"",
+   "link": "https://mangwonjeongx.org/article/?idx=175418555&bmode=view",
+   "date": "2026-11-04T13:18:43+09:00",
+   "key": "home:https://mangwonjeongx.org/article/?idx=175418555&bmode=view",
+   "mid": 131
   }
  ],
  "tg_offset": 307482627,
