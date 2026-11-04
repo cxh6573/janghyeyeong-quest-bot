@@ -93,6 +93,7 @@
   "link:yt:kMnaPQbA9c4",
   "link:yt:mjsgBuLNs7Y",
   "link:yt:qDcgK1QYb4Q",
+  "link:yt:vDIAUgKbZuY",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
   "manual:facebook:10232576611540473",
@@ -191,6 +192,7 @@
   "video:yt:tSwsolEmHoM",
   "video:yt:u6oUcOfyyvI",
   "video:yt:u_UK4SvGACc",
+  "video:yt:vDIAUgKbZuY",
   "video:yt:z98Vwhl_gn4"
  ],
  "nkeys": [
@@ -940,6 +942,16 @@
    "date": "2026-11-05T07:19:30+09:00",
    "key": "show:bbs:2026-11-05",
    "mid": 132
+  },
+  {
+   "at": "2026-11-05T08:15:27.169762+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "이주노동자 송금 탓? 대통령이라면 데이터부터 봐주세요",
+   "link": "https://www.youtube.com/watch?v=vDIAUgKbZuY",
+   "date": "2026-11-05T08:00:30+09:00",
+   "key": "video:yt:vDIAUgKbZuY",
+   "mid": 133
   }
  ],
  "tg_offset": 307482627,
