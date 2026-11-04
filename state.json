@@ -85,6 +85,7 @@
   "link:yt:X4Tv_CL2ipU",
   "link:yt:_rYKTBbg26w",
   "link:yt:aKoCBi9n5D4",
+  "link:yt:ayefKfiHlvE",
   "link:yt:bWy6Q2BuIaQ",
   "link:yt:d-mQw_z50JM",
   "link:yt:e6MZNH5Z-Mw",
@@ -121,6 +122,7 @@
   "news:청년정치누구때문에망했다손쉬운비판넘어",
   "news:평범함을위한투쟁누가할수있나요",
   "show:bbs:2026-09-17",
+  "show:bbs:2026-11-05",
   "show:cbs:2026-09-01",
   "show:cbs:2026-09-19",
   "show:cbs:2026-10-03",
@@ -928,6 +930,16 @@
    "date": "2026-11-04T13:18:43+09:00",
    "key": "home:https://mangwonjeongx.org/article/?idx=175418555&bmode=view",
    "mid": 131
+  },
+  {
+   "at": "2026-11-05T07:28:21.237792+09:00",
+   "kind": "show",
+   "label": "BBS 아침저널",
+   "title": "(장혜영&손수조)/(김영배)/(송헌재)[BBS 아침저널]",
+   "link": "https://www.youtube.com/watch?v=ayefKfiHlvE",
+   "date": "2026-11-05T07:19:30+09:00",
+   "key": "show:bbs:2026-11-05",
+   "mid": 132
   }
  ],
  "tg_offset": 307482627,
