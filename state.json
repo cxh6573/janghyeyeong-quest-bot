@@ -56,6 +56,7 @@
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261007-1791416228426.mp3?vod_id=C0000010545&podcast_id=P0000004868",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261014-1792021849933.mp3?vod_id=C0000010545&podcast_id=P0000004876",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/10/20261028_3-1793235036399.mp3?vod_id=C0000010545&podcast_id=P0000004897",
+  "link:https://podcast-aod.cpbc.co.kr/cpbfm/2026/11/20261104_3-1793836465067.mp3?vod_id=C0000010545&podcast_id=P0000004911",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid021qMysPEwqbmgz1UZfqc5w8vycqEYUQ1kBwT2mVN8ZikeURSwuXBjZ662FU1YTd3Ml",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid029G5iRtEsFix21ZRzthLsrXUhGrecXfsK6eodsXBgAmrF3qiDR2rHSbCSjHycXKVzl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid02GdrbhZLaUqoE4JaEEdbLvbLMUyrAxVD7MCMXnjNhvfmtgrq8BbQjmrTEHo1pbA7Cl",
@@ -147,6 +148,7 @@
   "show:cpbc:2026-10-07",
   "show:cpbc:2026-10-14",
   "show:cpbc:2026-10-28",
+  "show:cpbc:2026-11-04",
   "show:hk:2026-10-08",
   "show:hk:2026-10-09",
   "show:jtbc:2026-09-22",
@@ -952,6 +954,16 @@
    "date": "2026-11-05T08:00:30+09:00",
    "key": "video:yt:vDIAUgKbZuY",
    "mid": 133
+  },
+  {
+   "at": "2026-11-05T09:04:07.520218+09:00",
+   "kind": "show",
+   "label": "cpbc 김준일의 시사천국",
+   "title": "11/4(수) [문성호·김수민·장혜영] 尹 2심도 당선무효형…국힘 397억 반환 위기에 민주당 '부메랑' 될까",
+   "link": "https://podcast-aod.cpbc.co.kr/cpbfm/2026/11/20261104_3-1793836465067.mp3?vod_id=C0000010545&podcast_id=P0000004911",
+   "date": "2026-11-04T08:54:25+09:00",
+   "key": "show:cpbc:2026-11-04",
+   "mid": 134
   }
  ],
  "tg_offset": 307482627,
