@@ -78,6 +78,7 @@
   "link:yt:4hk17IXfqeY",
   "link:yt:Be6fXx7DBYs",
   "link:yt:GVpyykNrtko",
+  "link:yt:Iit3F6mwKhA",
   "link:yt:JHlfv_Oyp9U",
   "link:yt:KXWXGO9iQHs",
   "link:yt:NV1lrRQ9P2A",
@@ -151,6 +152,7 @@
   "show:cpbc:2026-11-04",
   "show:hk:2026-10-08",
   "show:hk:2026-10-09",
+  "show:hk:2026-11-05",
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
@@ -964,6 +966,16 @@
    "date": "2026-11-04T08:54:25+09:00",
    "key": "show:cpbc:2026-11-04",
    "mid": 134
+  },
+  {
+   "at": "2026-11-05T21:40:19.674684+09:00",
+   "kind": "show",
+   "label": "한국일보 이슈전파사",
+   "title": "오동석의 동은 장동혁? \"한동훈 대표가 오는 것이 하나도 도움이 안 되기 때문\" ㅣ 이슈전파사 11월 5일 방송(정구승 강수영 장혜영 김성열)",
+   "link": "https://www.youtube.com/watch?v=Iit3F6mwKhA",
+   "date": "2026-11-05T19:30:36+09:00",
+   "key": "show:hk:2026-11-05",
+   "mid": 135
   }
  ],
  "tg_offset": 307482627,
