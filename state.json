@@ -76,6 +76,7 @@
   "link:yt:2Rmh8ZE6IOE",
   "link:yt:4YPraauI4bQ",
   "link:yt:4hk17IXfqeY",
+  "link:yt:7BKctz9cL6g",
   "link:yt:Be6fXx7DBYs",
   "link:yt:GVpyykNrtko",
   "link:yt:Iit3F6mwKhA",
@@ -154,6 +155,7 @@
   "show:hk:2026-10-08",
   "show:hk:2026-10-09",
   "show:hk:2026-11-05",
+  "show:hk:2026-11-07",
   "show:jtbc:2026-09-22",
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
@@ -988,6 +990,16 @@
    "date": "2026-11-07T11:38:03+09:00",
    "key": "video:yt:Z6W69eTJyXA",
    "mid": 136
+  },
+  {
+   "at": "2026-11-07T22:44:57.301899+09:00",
+   "kind": "show",
+   "label": "한국일보 이슈전파사",
+   "title": "세 번 사과한 김민석, 친청계는 반발 ㅣ 이슈전파사 이슈안테나 모아보기(11월 3일~ 5일)",
+   "link": "https://www.youtube.com/watch?v=7BKctz9cL6g",
+   "date": "2026-11-07T18:00:27+09:00",
+   "key": "show:hk:2026-11-07",
+   "mid": 137
   }
  ],
  "tg_offset": 307482627,
