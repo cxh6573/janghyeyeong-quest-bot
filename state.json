@@ -77,6 +77,7 @@
   "link:yt:4YPraauI4bQ",
   "link:yt:4hk17IXfqeY",
   "link:yt:7BKctz9cL6g",
+  "link:yt:8nE2bvfhDJs",
   "link:yt:Be6fXx7DBYs",
   "link:yt:GVpyykNrtko",
   "link:yt:Iit3F6mwKhA",
@@ -164,6 +165,7 @@
   "video:yt:1JtoCBBpo-8",
   "video:yt:4hk17IXfqeY",
   "video:yt:8UmGErgjiTM",
+  "video:yt:8nE2bvfhDJs",
   "video:yt:9X5yNumMJPs",
   "video:yt:Akds_FfNf58",
   "video:yt:DgHKC86gyu4",
@@ -1000,6 +1002,16 @@
    "date": "2026-11-07T18:00:27+09:00",
    "key": "show:hk:2026-11-07",
    "mid": 137
+  },
+  {
+   "at": "2026-11-08T16:49:33.254299+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "미국 중간 선거, 돈 쏟아붓고도 선거 못 산 테크 억만장자들",
+   "link": "https://www.youtube.com/watch?v=8nE2bvfhDJs",
+   "date": "2026-11-08T16:16:59+09:00",
+   "key": "video:yt:8nE2bvfhDJs",
+   "mid": 138
   }
  ],
  "tg_offset": 307482627,
