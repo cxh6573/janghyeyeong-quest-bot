@@ -99,6 +99,7 @@
   "link:yt:mjsgBuLNs7Y",
   "link:yt:qDcgK1QYb4Q",
   "link:yt:vDIAUgKbZuY",
+  "link:yt:zMeB78cl1w0",
   "link:yt:zYW6D0z2yXE",
   "link:yt:zlYwat7-4eM",
   "manual:facebook:10232576611540473",
@@ -203,7 +204,8 @@
   "video:yt:u6oUcOfyyvI",
   "video:yt:u_UK4SvGACc",
   "video:yt:vDIAUgKbZuY",
-  "video:yt:z98Vwhl_gn4"
+  "video:yt:z98Vwhl_gn4",
+  "video:yt:zMeB78cl1w0"
  ],
  "nkeys": [
   "bbs뉴스아침저널장혜영미프진처방WHO",
@@ -1012,6 +1014,16 @@
    "date": "2026-11-08T16:16:59+09:00",
    "key": "video:yt:8nE2bvfhDJs",
    "mid": 138
+  },
+  {
+   "at": "2026-11-10T12:17:59.096335+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "검사는 수사 못하는 거 아니었나요? 타임머신 탄 민주당 조작기소특검",
+   "link": "https://www.youtube.com/watch?v=zMeB78cl1w0",
+   "date": "2026-11-10T10:00:18+09:00",
+   "key": "video:yt:zMeB78cl1w0",
+   "mid": 140
   }
  ],
  "tg_offset": 307482627,
