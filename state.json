@@ -94,6 +94,7 @@
   "link:yt:aKoCBi9n5D4",
   "link:yt:ayefKfiHlvE",
   "link:yt:bWy6Q2BuIaQ",
+  "link:yt:cedgjBhdNWQ",
   "link:yt:d-mQw_z50JM",
   "link:yt:e6MZNH5Z-Mw",
   "link:yt:jQ-YN2Oh0g0",
@@ -166,6 +167,7 @@
   "show:jtbc:2026-09-29",
   "show:sbs:2026-10-01",
   "show:sbs:2026-10-08",
+  "show:sbs:2026-11-12",
   "video:yt:-4iR3EInOKM",
   "video:yt:1JtoCBBpo-8",
   "video:yt:4hk17IXfqeY",
@@ -1059,6 +1061,16 @@
    "date": "2026-11-11T09:07:11+09:00",
    "key": "show:cpbc:2026-11-11",
    "mid": 143
+  },
+  {
+   "at": "2026-11-12T18:20:03.722776+09:00",
+   "kind": "show",
+   "label": "SBS 최선호의 뉴스직격",
+   "title": "[뉴스직격]'한동훈 조작징계' 윤리위원, 국힘 출석 요구 거부/장동혁, 오세훈 '韓복당'? \"패륜정치 받아들이자고?\"/김민석\"만나자\" 정청래\"사과부터 제대로\"/조응천 김근식 장혜영",
+   "link": "https://www.youtube.com/watch?v=cedgjBhdNWQ",
+   "date": "2026-11-12T18:06:16+09:00",
+   "key": "show:sbs:2026-11-12",
+   "mid": 144
   }
  ],
  "tg_offset": 307482627,
