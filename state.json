@@ -38,6 +38,7 @@
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174906467&bmode=view",
   "home:https://mangwonjeongx.org/janghyeyeongnow/?idx=174906478&bmode=view",
   "home:https://mangwonjeongx.org/notice/?idx=174824104&bmode=view",
+  "home:https://mangwonjeongx.org/notice/?idx=175616167&bmode=view",
   "link:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2022/12/C0000010545_f9f70ae26bf3e96e9eaed0fded7141f3-1671709945965.mp3?vod_id=C0000010545&podcast_id=P0000000166",
   "link:https://podcast-aod.cpbc.co.kr/cpbfm/2024/07/20240726-1722209366415.mp3?vod_id=C0000010545&podcast_id=P0000003727",
@@ -254,6 +255,7 @@
   "장혜영정의당대통령박원순회고에2차가해권",
   "정의당용혜인장관지명위성정당반칙에훈장달",
   "정치와여성사이의거리를좁히다",
+  "제2차임시총회안내",
   "제주서장혜영전의원평등한평범북토크21일",
   "청년정치누구때문에망했다손쉬운비판넘어",
   "추석인사와생일축하",
@@ -1071,6 +1073,16 @@
    "date": "2026-11-12T18:06:16+09:00",
    "key": "show:sbs:2026-11-12",
    "mid": 144
+  },
+  {
+   "at": "2026-11-13T19:58:07.250399+09:00",
+   "kind": "news",
+   "label": "망원정x",
+   "title": "제2차 임시총회 안내",
+   "link": "https://mangwonjeongx.org/notice/?idx=175616167&bmode=view",
+   "date": "2026-11-13T14:56:15+09:00",
+   "key": "home:https://mangwonjeongx.org/notice/?idx=175616167&bmode=view",
+   "mid": 145
   }
  ],
  "tg_offset": 307482627,
