@@ -102,6 +102,7 @@
   "link:yt:kMnaPQbA9c4",
   "link:yt:mjsgBuLNs7Y",
   "link:yt:qDcgK1QYb4Q",
+  "link:yt:u5A_xTd6vIQ",
   "link:yt:vDIAUgKbZuY",
   "link:yt:zMeB78cl1w0",
   "link:yt:zYW6D0z2yXE",
@@ -140,6 +141,7 @@
   "show:cbs:2026-10-03",
   "show:cbs:2026-10-17",
   "show:cbs:2026-10-31",
+  "show:cbs:2026-11-14",
   "show:cpbc:2020-02-10",
   "show:cpbc:2024-07-26",
   "show:cpbc:2026-04-30",
@@ -1083,6 +1085,16 @@
    "date": "2026-11-13T14:56:15+09:00",
    "key": "home:https://mangwonjeongx.org/notice/?idx=175616167&bmode=view",
    "mid": 145
+  },
+  {
+   "at": "2026-11-14T08:47:30.756408+09:00",
+   "kind": "show",
+   "label": "CBS 주말뉴스쇼",
+   "title": "[🔴 주말뉴스쇼] 이동학, 김종혁, 장혜영 출연 | 김민석과 친청계 정면 충돌/한동훈 징계는 조작? 장동혁 체제 흔들리나?",
+   "link": "https://www.youtube.com/watch?v=u5A_xTd6vIQ",
+   "date": "2026-11-14T06:55:05+09:00",
+   "key": "show:cbs:2026-11-14",
+   "mid": 146
   }
  ],
  "tg_offset": 307482627,
