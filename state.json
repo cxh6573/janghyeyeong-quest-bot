@@ -101,6 +101,7 @@
   "link:yt:cedgjBhdNWQ",
   "link:yt:cjFkFwzx57Q",
   "link:yt:d-mQw_z50JM",
+  "link:yt:dIwiBjn7Xe8",
   "link:yt:e6MZNH5Z-Mw",
   "link:yt:fmbdXgg9Zas",
   "link:yt:jQ-YN2Oh0g0",
@@ -213,6 +214,7 @@
   "video:yt:_rYKTBbg26w",
   "video:yt:aKoCBi9n5D4",
   "video:yt:cjFkFwzx57Q",
+  "video:yt:dIwiBjn7Xe8",
   "video:yt:e6MZNH5Z-Mw",
   "video:yt:fmbdXgg9Zas",
   "video:yt:go9T8OW0wvU",
@@ -1167,6 +1169,16 @@
    "date": "2026-11-22T06:00:00+09:00",
    "key": "news:방황하는사랑의정치이제탁자를뒤엎을때다t",
    "mid": 153
+  },
+  {
+   "at": "2026-11-22T19:11:18.877944+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "한덕수 대법원 판결, 유죄를 주고도 욕먹는 이유",
+   "link": "https://www.youtube.com/watch?v=dIwiBjn7Xe8",
+   "date": "2026-11-22T17:56:09+09:00",
+   "key": "video:yt:dIwiBjn7Xe8",
+   "mid": 154
   }
  ],
  "tg_offset": 307482627,
