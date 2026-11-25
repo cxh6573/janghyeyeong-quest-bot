@@ -69,6 +69,7 @@
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0GkK7onxTsYbyey2ibN1uRCXxZ9Le9qWgQTJ2DjCWpzpdW6F42dFkjKmgRCX4qrfal",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0M63RAwcymEkwM8qsu7X8oxKJyVAg3WFuXhzNoCAE3kMVu9uuQ21Xx7ufTFhzCBGbl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VHrhZgAueRVk4RdjeuGAowUzcL8UWeH7GuHbp1XYnHMDJdjCVJDwcZHv4zb5xRMhl",
+  "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0VzwwMFkNeUUFgitbErbqBAfgiNWxrMjuWu8xJ3MjwVWJiN99gbYuW7KKAPKsDQF5l",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0WQQCoTDiK1H1ffmBSaBnebJ86MtzGKS3gYbAjJz4y5U3sA1yvcksmexfME3UYSF1l",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0pCLhQkYHVyseAxSJg4Qgr4NjwcT7g3iv4xLqMeFtaxjSB9DsWg4ga4MCHDqbxFkPl",
   "link:https://www.facebook.com/serious.hyeyeong/posts/pfbid0xoeFW4EUFfouNKEcJULRqMdCa6Pe2LdW7CWr7WA1Mpd2pG2DohNDXrnVVo39wf6Bl",
@@ -129,6 +130,7 @@
   "manual:facebook:10244970703785033",
   "manual:facebook:10245003602487480",
   "manual:facebook:10245004593592257",
+  "manual:facebook:10245551097374510",
   "manual:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/",
   "news:대통령은SNS를끄고피해자의책을읽으시라",
@@ -1239,9 +1241,19 @@
    "date": "2026-11-25T10:42:27+09:00",
    "key": "news:장혜영에게차별금지법은운명이었다평범한미",
    "mid": 160
+  },
+  {
+   "at": "2026-11-25T23:58:57.453793+09:00",
+   "kind": "sns",
+   "label": "장혜영 페이스북",
+   "title": "페미니스트 러닝크루 ’다뛰여‘의 연례행사, 2026년 여성정치 10대 뉴스 선정하고 함께 연말 수다 나누러 오세요😊",
+   "link": "https://www.facebook.com/serious.hyeyeong/posts/pfbid0VzwwMFkNeUUFgitbErbqBAfgiNWxrMjuWu8xJ3MjwVWJiN99gbYuW7KKAPKsDQF5l",
+   "date": null,
+   "key": "manual:facebook:10245551097374510",
+   "mid": 161
   }
  ],
- "tg_offset": 307482627,
+ "tg_offset": 307482628,
  "manual_done": [
   "manual:facebook:10232576611540473",
   "manual:facebook:10244424907220460",
@@ -1255,6 +1267,7 @@
   "manual:facebook:10244970703785033",
   "manual:facebook:10245003602487480",
   "manual:facebook:10245004593592257",
+  "manual:facebook:10245551097374510",
   "manual:https://h21.hani.co.kr/arti/politics/politics_general/60087.html",
   "manual:https://www.instagram.com/p/Dd_HRL4Cayb/"
  ],
