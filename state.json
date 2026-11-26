@@ -85,6 +85,7 @@
   "link:yt:4YPraauI4bQ",
   "link:yt:4hk17IXfqeY",
   "link:yt:7BKctz9cL6g",
+  "link:yt:7QqFwa4L0Oo",
   "link:yt:8nE2bvfhDJs",
   "link:yt:Be6fXx7DBYs",
   "link:yt:GVpyykNrtko",
@@ -189,6 +190,7 @@
   "show:sbs:2026-10-01",
   "show:sbs:2026-10-08",
   "show:sbs:2026-11-12",
+  "show:sbs:2026-11-26",
   "video:yt:-4iR3EInOKM",
   "video:yt:1JtoCBBpo-8",
   "video:yt:2--_VGR9VWM",
@@ -1263,6 +1265,16 @@
    "date": "2026-11-25T09:47:19+09:00",
    "key": "show:cpbc:2026-11-25",
    "mid": 162
+  },
+  {
+   "at": "2026-11-27T00:40:14.897869+09:00",
+   "kind": "show",
+   "label": "SBS 최선호의 뉴스직격",
+   "title": "[뉴스직격] 장동혁, 친한계에게 알려준 팁? 정점식 폭발? “당 꼬라지하고는”/조응천 김근식 장혜영[조근조근]1126",
+   "link": "https://www.youtube.com/watch?v=7QqFwa4L0Oo",
+   "date": "2026-11-26T18:45:58+09:00",
+   "key": "show:sbs:2026-11-26",
+   "mid": 163
   }
  ],
  "tg_offset": 307482628,
