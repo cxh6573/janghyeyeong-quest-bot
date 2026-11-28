@@ -91,6 +91,7 @@
   "link:yt:GVpyykNrtko",
   "link:yt:Gm65GBSEdc4",
   "link:yt:Iit3F6mwKhA",
+  "link:yt:IjOh7EioiHI",
   "link:yt:JHlfv_Oyp9U",
   "link:yt:KXWXGO9iQHs",
   "link:yt:NV1lrRQ9P2A",
@@ -107,6 +108,7 @@
   "link:yt:cjFkFwzx57Q",
   "link:yt:d-mQw_z50JM",
   "link:yt:dIwiBjn7Xe8",
+  "link:yt:e68RA8EBhTY",
   "link:yt:e6MZNH5Z-Mw",
   "link:yt:fmbdXgg9Zas",
   "link:yt:jQ-YN2Oh0g0",
@@ -158,6 +160,7 @@
   "show:cbs:2026-10-17",
   "show:cbs:2026-10-31",
   "show:cbs:2026-11-14",
+  "show:cbs:2026-11-28",
   "show:cpbc:2020-02-10",
   "show:cpbc:2024-07-26",
   "show:cpbc:2026-04-30",
@@ -228,6 +231,7 @@
   "video:yt:aKoCBi9n5D4",
   "video:yt:cjFkFwzx57Q",
   "video:yt:dIwiBjn7Xe8",
+  "video:yt:e68RA8EBhTY",
   "video:yt:e6MZNH5Z-Mw",
   "video:yt:fmbdXgg9Zas",
   "video:yt:go9T8OW0wvU",
@@ -1275,6 +1279,26 @@
    "date": "2026-11-26T18:45:58+09:00",
    "key": "show:sbs:2026-11-26",
    "mid": 163
+  },
+  {
+   "at": "2026-11-28T10:36:10.901167+09:00",
+   "kind": "show",
+   "label": "CBS 주말뉴스쇼",
+   "title": "11/28(토) | 주말뉴스쇼 | 트럼프, 호남 반도체 공장 정조준 (김대호 박사) | 최민희 징계, 친청계의 반격 카드는? (이동학, 김종혁, 장혜영)",
+   "link": "https://www.youtube.com/watch?v=IjOh7EioiHI",
+   "date": "2026-11-28T08:57:15+09:00",
+   "key": "show:cbs:2026-11-28",
+   "mid": 164
+  },
+  {
+   "at": "2026-11-28T10:36:14.381177+09:00",
+   "kind": "video",
+   "label": "장혜영 유튜브",
+   "title": "젠슨 황의 복귀, 트럼프가 나선 이유는? [한국어CC] 빅토크",
+   "link": "https://www.youtube.com/watch?v=e68RA8EBhTY",
+   "date": "2026-11-28T10:00:00+09:00",
+   "key": "video:yt:e68RA8EBhTY",
+   "mid": 165
   }
  ],
  "tg_offset": 307482628,
